@@ -73,7 +73,7 @@ package
 		
 		public override function kill():void
 		{
-			transferAttributesToPlayer();
+			dropItem();
 			super.kill();
 		}
 		

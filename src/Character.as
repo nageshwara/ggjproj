@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxG;
 	import attributes.Attribute;
 	/**
 	 * ...
@@ -49,6 +50,14 @@ package
 				character.addAttribute(attribute);
 				removeAttribute(attribute);
 			}
+		}
+		
+		public function dropItem():void
+		{
+			var item:Item = new Item(x, y);
+			transferAttributes(item);
+			item.updateImage();
+			PlayState.addToGroup(item, PlayState.items);
 		}
 		
 		/**
