@@ -66,7 +66,9 @@ package
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
 						
-			addAttribute(new attributes.WeaponPistolAttribute);
+			addAttribute(new attributes.WeaponPistolAttribute);			
+			addAttribute(new attributes.WeaponRearAttribute);			
+			addAttribute(new attributes.WeaponSideAttribute);
 		}
 		
 		override public function clearAttributes():void
@@ -177,7 +179,7 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				for (var i:Number = 0; i < weapons.members.length; i++)
+				for (var i:Number = 0; i < weapons.length; i++)
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();

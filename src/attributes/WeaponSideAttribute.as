@@ -31,17 +31,17 @@ package attributes
 			updateWeapon(character);
 		}
 						
-		public function updateWeapon()
+		public function updateWeapon(character:Character): void
 		{
 			var newSide:Weapon;
 			if (character.wpnSide)
 			{
 				character.weapons.remove(character.wpnSide, true);
-				character.wpnSide = 0;
+				character.wpnSide = null;
 			}
-			if (Character.WEAPON_REAR > 0)
+			if (character.WEAPON_REAR > 0)
 			{
-				var newSide:Weapon = new Weapon(this, character.bulletGroup, 2, 100 + 25 * WEAPON_SIDE, 100 + 25 * WEAPON_SIDE, 50);
+				newSide = new Weapon(character, character.bulletGroup, 2, 100 + 25 * character.WEAPON_SIDE, 100 + 25 * character.WEAPON_SIDE, 50);
 				character.weapons.add(newSide);
 				character.wpnSide = newSide;	
 			}

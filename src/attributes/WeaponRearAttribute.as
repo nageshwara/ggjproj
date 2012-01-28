@@ -32,17 +32,17 @@ package attributes
 		}
 		
 				
-		public function updateWeapon(character:Character)
+		public function updateWeapon(character:Character): void
 		{
 			var newRear:Weapon;
 			if (character.wpnRear)
 			{
-				character.weapons.remove(character.wpnRear, true)
-				character.wpnRear = 0;
+				character.weapons.remove(character.wpnRear, true);
+				character.wpnRear = null;
 			}
-			if (Character.WEAPON_REAR > 0)
+			if (character.WEAPON_REAR > 0)
 			{
-				var newRear:Weapon = new Weapon(this, character.bulletGroup, 3, 100 + 25 * WEAPON_REAR, 100 + 25 * WEAPON_REAR, 50);
+				newRear = new Weapon(character, character.bulletGroup, 3, 100 + 25 * character.WEAPON_REAR, 100 + 25 * character.WEAPON_REAR, 50);
 				character.weapons.add(newRear);
 				character.wpnRear = newRear;	
 			}
