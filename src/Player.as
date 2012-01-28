@@ -41,7 +41,10 @@ package
 		public var NORTH:Number = 270;
 		public var NORTHEAST:Number = 315;
 		
-		private var weapon:Weapon;
+		private var wpnPistol:Weapon;
+		private var wpnSide:Weapon;
+		private var wpnRear:Weapon;
+		private var weapons:FlxGroup;
 		
 		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
@@ -56,8 +59,17 @@ package
 			SPEED = INITIAL_SPEED;
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
+			WEAPON_PISTOL = 1;
+			WEAPON_SIDE = 1;
+			WEAPON_REAR = 1;
 			
-			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
+			weapons = new FlxGroup();
+			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
+			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
+			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
+			weapons.add(wpnPistol);
+			weapons.add(wpnSide);
+			weapons.add(wpnRear);
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
@@ -165,7 +177,12 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				weapon.fireVector(direction, width/2 + width/2 * direction.x, height/2 + height/2 * direction.y);
+				for (var i:Number = 0; i < weapons.members.length-1; ++i)
+				{
+					var weapon:Weapon = weapons.members[i];
+					weapon.update();
+					weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
+				}
 			}
 			
 		}

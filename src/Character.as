@@ -12,11 +12,17 @@ package
 		// Array of special attributes that modify stats
 		public var attributes:Array;
 		
+		public static const FRAME_WIDTH:int = 0;
+		public static const FRAME_HEIGHT:int = 0;
+		
 		// ATTRIBUTE MODIFIABLE VARIABLES
 		public var SPEED:Number;
 		public var ATK:Number;
-		private var DEF:Number;
+		public var DEF:Number;
 		
+		public var WEAPON_PISTOL:Number;
+		public var WEAPON_SIDE:Number;
+		public var WEAPON_REAR:Number;
 		
 		/**
 		 * Constructor
