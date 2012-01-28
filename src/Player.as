@@ -43,6 +43,11 @@ package
 			health = 100;
 		}
 		
+		public function get position():FlxPoint
+		{
+			return new FlxPoint(x, y);
+		}
+		
 		override public function update(): void
 		{
 			move();

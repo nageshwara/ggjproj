@@ -9,6 +9,11 @@ package
 		
 		private var healthBar:FlxBar;
 		
+		public static function getPlayer():Player
+		{
+			return PlayState(FlxG.state).player;
+		}
+		
 		override public function create():void
 		{
 			//Set the background color to light gray (0xAARRGGBB)
@@ -26,7 +31,7 @@ package
 			var enemy:Enemy = new Enemy(FlxG.width / 4, FlxG.height / 4);
 			add(enemy);
 		}
-			
+		
 		override public function update():void
 		{			
 			//Updates all the objects appropriately
