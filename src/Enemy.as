@@ -67,9 +67,6 @@ package
 			WEAPON_REAR = 0;
 			
 			this.bulletGroup = bulletGroup;
-			updateWeapon(Attribute.ATT_PISTOL, WEAPON_PISTOL);
-			updateWeapon(Attribute.ATT_SIDE, WEAPON_SIDE);
-			updateWeapon(Attribute.ATT_REAR, WEAPON_REAR);
 			
 			if (isBoss)
 			{
@@ -223,7 +220,7 @@ package
 		
 		public function fireWeapons():void
 		{
-			for (var i:Number = 0; i < weapons.members.length-1; ++i)
+			for (var i:Number = 0; i < weapons.members.length-1; i++)
 			{
 				var weapon:Weapon = weapons.members[i];
 				weapon.update();
