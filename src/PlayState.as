@@ -37,14 +37,16 @@ package
 			healthBar.trackParent(0, -24);
 			add(healthBar);
 			
-			enemies = new FlxGroup;
+			enemies = new FlxGroup();
+			enemyBullets = new FlxGroup();
 			for (var i:int = 0; i < 100; ++i)
 			{
 				var randomX:int = (FlxG.random() * FlxG.width);
 				var randomY:int = (FlxG.random() * FlxG.height);
-				enemies.add(new Enemy(randomX, randomY));
+				enemies.add(new Enemy(randomX, randomY, enemyBullets));
 			}
 			add(enemies);
+			add(enemyBullets);
 			
 			debugText = new FlxText(0, 0, 100, "Attack: 0");
 			add(debugText);
@@ -53,7 +55,8 @@ package
 		override public function update():void
 		{
 			FlxG.collide(player, enemies, collidePlayerEnemies);
-			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
+			FlxG.overlap(player, enemyBullets, collidePlayerEnemyBullets);
+			FlxG.overlap(playerBullets, enemies, collidePlayerBulletsEnemies);
 			
 			//Updates all the objects appropriately
 			super.update();
@@ -66,9 +69,15 @@ package
 			player.hurt(enemy.ATK);
 		}
 		
+		private function collidePlayerEnemyBullets(player:Player, bullet:Bullet): void
+		{
+			player.hurt(bullet.ATK);
+			bullet.kill();
+		}
+		
 		private function collidePlayerBulletsEnemies(bullet:Bullet, enemy:Enemy): void
 		{
-			enemy.hurt(player.ATK);
+			enemy.hurt(bullet.ATK);
 			bullet.kill();
 		}
 	}

@@ -163,6 +163,13 @@ package
 		public function spinLeftState():void
 		{
 			angle -= 1;
+			
+			for (var i:Number = 0; i < weapons.members.length-1; ++i)
+			{
+				var weapon:Weapon = weapons.members[i];
+				weapon.update();
+				weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
+			}
 		}
 		
 		/**
