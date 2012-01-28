@@ -40,6 +40,8 @@ package org.flixel.plugin.photonstorm.BaseTypes
 		
 		protected var animated:Boolean;
 		
+		public var ATK:Number;
+		
 		public function Bullet(weapon:FlxWeapon, id:uint)
 		{
 			super(0, 0);

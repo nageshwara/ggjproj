@@ -35,7 +35,6 @@ package
 		{
 			weapon = new FlxWeapon("weapon", parent, "x", "y");
 			var bulletType:Class;
-			
 			switch (type)
 			{
 				case T_PISTOL:
@@ -74,18 +73,22 @@ package
 				if (weaponType == T_REAR)
 				{
 					weapon.setBulletOffset( originX - offsetX, originY - offsetY);
-					weapon.fireFromAngle(angle+180);
+					weapon.fireFromAngle(angle + 180);
+					weapon.currentBullet.ATK = parent.ATK;
 				}
 				else if (weaponType == T_SIDE)
 				{
 					weapon.setBulletOffset(originX, originY);
 					weapon.fireFromAngle(angle + 90);
+					weapon.currentBullet.ATK = parent.ATK;
 					weapon.fireFromAngle(angle + 270);
+					weapon.currentBullet.ATK = parent.ATK;
 				}
 				else
 				{
 					weapon.setBulletOffset(originX + offsetX, originY + offsetY);
 					weapon.fireFromAngle(angle);
+					weapon.currentBullet.ATK = parent.ATK;
 				}
 				fireTimer = fireDelay;
 			}
