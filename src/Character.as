@@ -20,6 +20,7 @@ package
 		public var SPEED:Number;
 		public var ATK:Number;
 		public var DEF:Number;
+		public var REGEN:Number;
 		
 		public var WEAPON_PISTOL:Number;
 		public var WEAPON_SIDE:Number;
