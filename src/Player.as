@@ -14,7 +14,7 @@ package
 	 * ...
 	 * @author Doug Macdonald
 	 */
-	public class Player extends FlxSprite
+	public class Player extends Character
 	{
 		[Embed(source = '../data/shark_blue.png')] private var ImgSprite:Class;
 		[Embed(source = '../data/bullet_pistol.png')] private var ImgBulletPistol:Class;
@@ -22,10 +22,10 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
-		private var speed:Number;
-		private var maxspeed:Number;
+		public static const INITIAL_SPEED:Number = 150;
+		public static const INITIAL_HEALTH:int = 100;
 		
-		private var DEF:Number;
+		private var maxspeed:Number;
 		
 		private var direction:Number;
 		
@@ -50,23 +50,17 @@ package
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
-			speed = 150;
-			maxspeed = speed * 2;
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
 			drag.x = drag.y = 100
 			
-			health = 100;
+			SPEED = INITIAL_SPEED;
+			health = INITIAL_HEALTH;
 			DEF = 1.25;
 			
 			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
-		}
-		
-		public function get position():FlxPoint
-		{
-			return new FlxPoint(x, y);
 		}
 		
 		public override function hurt(damage:Number): void
@@ -85,6 +79,8 @@ package
 		
 		override public function update(): void
 		{
+			maxspeed = SPEED * 2;
+			
 			move();
 			shoot();
 			
@@ -139,7 +135,7 @@ package
 				health = Math.max(health -= 10, 0);
 			}
 			
-			acceleration = new FlxPoint(speed * direction.x, speed * direction.y);
+			acceleration = new FlxPoint(SPEED * direction.x, SPEED * direction.y);
 			
 			if (direction.x || direction.y)
 			{

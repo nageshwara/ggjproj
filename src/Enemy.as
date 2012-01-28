@@ -8,7 +8,7 @@ package
 	 * ...
 	 * @author Jason Hamilton
 	 */
-	public class Enemy extends FlxSprite
+	public class Enemy extends Character
 	{
 		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
 		
@@ -17,10 +17,7 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
-		public var speed:Number;
 		public var maxspeed:Number;
-		
-		public var ATK:Number;
 		
 		// Current state
 		private var currentState:Function;
@@ -37,7 +34,7 @@ package
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
 			
-			speed = DEFAULT_SPEED;
+			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
 			changeState("followPlayer");
 			
@@ -77,11 +74,6 @@ package
 		private function get player():Player
 		{
 			return PlayState.getPlayer();
-		}
-		
-		public function get position():FlxPoint
-		{
-			return new FlxPoint(x, y);
 		}
 		
 		public function get direction():FlxPoint
@@ -129,7 +121,7 @@ package
 			
 			if (distance > FRAME_HEIGHT)
 			{
-				velocity = VecUtil.scale(direction, speed);
+				velocity = VecUtil.scale(direction, SPEED);
 				faceVelocity();
 			}
 			else
