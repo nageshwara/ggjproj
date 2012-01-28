@@ -11,6 +11,7 @@ package attributes
 		public function AttackAttribute() 
 		{
 			super();
+			attributeType = ATT_ATK;
 		}
 		
 		override public function onAdd(character:Character):void

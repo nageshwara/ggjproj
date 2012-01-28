@@ -12,6 +12,8 @@ package
 		public var enemies:FlxGroup;
 		public var enemyBullets:FlxGroup;
 		
+		public static var items:FlxGroup;
+		
 		private var healthBar:FlxBar;
 		
 		private var debugText:FlxText;
@@ -19,6 +21,16 @@ package
 		public static function getPlayer():Player
 		{
 			return PlayState(FlxG.state).player;
+		}
+		
+		public static function addToGroup(object:FlxObject, group:FlxGroup):void
+		{
+			if (!group)
+			{
+				group = new FlxGroup();
+			}
+			
+			group.add(object);
 		}
 		
 		override public function create():void
@@ -39,7 +51,7 @@ package
 			
 			enemies = new FlxGroup();
 			enemyBullets = new FlxGroup();
-			for (var i:int = 0; i < 100; ++i)
+			for (var i:int = 0; i < 10; ++i)
 			{
 				var randomX:int = (FlxG.random() * FlxG.width);
 				var randomY:int = (FlxG.random() * FlxG.height);
@@ -48,6 +60,9 @@ package
 			add(enemies);
 			add(enemyBullets);
 			
+			items = new FlxGroup;
+			add(items);
+			
 			debugText = new FlxText(0, 0, 100, "Attack: 0");
 			add(debugText);
 		}
@@ -55,8 +70,9 @@ package
 		override public function update():void
 		{
 			FlxG.collide(player, enemies, collidePlayerEnemies);
+			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
 			FlxG.overlap(player, enemyBullets, collidePlayerEnemyBullets);
-			FlxG.overlap(playerBullets, enemies, collidePlayerBulletsEnemies);
+			FlxG.collide(player, items, collidePlayerItems);
 			
 			//Updates all the objects appropriately
 			super.update();
@@ -79,6 +95,12 @@ package
 		{
 			enemy.hurt(bullet.ATK);
 			bullet.kill();
+		}
+		
+		private function collidePlayerItems(player:Player, item:Item): void
+		{
+			item.transferAttributesToPlayer();
+			item.kill();
 		}
 	}
 }

@@ -11,6 +11,7 @@ package attributes
 		public function SpeedAttribute() 
 		{
 			super();
+			attributeType = ATT_SPD;
 		}
 		
 		override public function onAdd(character:Character):void
