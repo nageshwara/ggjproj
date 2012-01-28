@@ -9,6 +9,7 @@ package
 	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
 	import Weapon;
+	import attributes.Attribute;
 	
 	/**
 	 * ...
@@ -41,11 +42,6 @@ package
 		public var NORTH:Number = 270;
 		public var NORTHEAST:Number = 315;
 		
-		private var wpnPistol:Weapon;
-		private var wpnSide:Weapon;
-		private var wpnRear:Weapon;
-		private var weapons:FlxGroup;
-		
 		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
@@ -60,17 +56,14 @@ package
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
-			WEAPON_PISTOL = 1;
-			WEAPON_SIDE = 1;
-			WEAPON_REAR = 1;
+			WEAPON_PISTOL = 5;
+			WEAPON_SIDE = 5;
+			WEAPON_REAR = 5;
 
-			weapons = new FlxGroup();
-			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
-			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
-			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
-			weapons.add(wpnPistol);
-			weapons.add(wpnSide);
-			weapons.add(wpnRear);
+			this.bulletGroup = bulletGroup;
+			updateWeapon(Attribute.ATT_PISTOL, WEAPON_PISTOL);
+			updateWeapon(Attribute.ATT_SIDE, WEAPON_SIDE);
+			updateWeapon(Attribute.ATT_REAR, WEAPON_REAR);
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
@@ -178,7 +171,7 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				for (var i:Number = 0; i < weapons.members.length-1; ++i)
+				for (var i:Number = 0; i < weapons.length; i++)
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();
@@ -187,6 +180,7 @@ package
 			}
 			
 		}
+
 	}
 
 }

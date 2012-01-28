@@ -59,7 +59,7 @@ package
 			
 			weapon.makeImageBullet(maxBullets, bulletType);
 			weapon.setBulletSpeed(speed);
-			fireDelay = fireRate / 100;
+			fireDelay = 100 / fireRate;
 			fireTimer = 0;
 			bulletGroup.add(weapon.group);
 		}
