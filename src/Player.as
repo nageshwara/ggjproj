@@ -127,7 +127,7 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				weapon.fireVector(direction, width + width * direction.x, height + height * direction.y);
+				weapon.fireVector(direction, width/2 + width/2 * direction.x, height/2 + height/2 * direction.y);
 			}
 			
 		}
