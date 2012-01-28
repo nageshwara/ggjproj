@@ -163,8 +163,6 @@ package
 		public function spinLeftState():void
 		{
 			angle -= 1;
-			
-			
 		}
 		
 		/**
