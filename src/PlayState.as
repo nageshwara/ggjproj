@@ -6,6 +6,7 @@ package
 	public class PlayState extends FlxState
 	{
 		public var player:Player;
+		public var playerBullets:FlxGroup;
 		
 		private var healthBar:FlxBar;
 		
@@ -15,8 +16,10 @@ package
 			FlxG.bgColor = 0xffaaaaaa;
 			
 			//Create player
-			player = new Player(FlxG.width/2, FlxG.height/2);
+			playerBullets = new FlxGroup();
+			player = new Player(FlxG.width/2, FlxG.height/2, playerBullets);
 			add(player);
+			add(playerBullets);
 			
 			// Create health bar
 			healthBar = new FlxBar(16, 64, FlxBar.FILL_LEFT_TO_RIGHT, 64, 8, player, "health");

@@ -1,24 +1,28 @@
 package  
 {
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
 	import org.flixel.plugin.photonstorm.FlxBar;
+	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
+	import Weapon;
 	
 	/**
 	 * ...
-	 * @author 
+	 * @author Doug Macdonald
 	 */
 	public class Player extends FlxSprite
 	{
 		[Embed(source = '../data/shark_blue.png')] private var ImgSprite:Class;
+		[Embed(source = '../data/bullet_pistol.png')] private var ImgBulletPistol:Class;
 		
-		public var speed:Number;
-		public var maxspeed:Number;
+		private var speed:Number;
+		private var maxspeed:Number;
 		
-		public var direction:Number;
+		private var direction:Number;
 		
 		public var EAST:Number = 0;
 		public var SOUTHEAST:Number = 45;
@@ -29,7 +33,9 @@ package
 		public var NORTH:Number = 270;
 		public var NORTHEAST:Number = 315;
 		
-		public function Player(X:Number, Y:Number): void
+		private var weapon:Weapon;
+		
+		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
 			loadGraphic(ImgSprite, true, false, 57, 34);
@@ -41,11 +47,14 @@ package
 			drag.x = drag.y = 30
 			
 			health = 100;
+			
+			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
 		}
 		
 		override public function update(): void
 		{
 			move();
+			shoot();
 			
 			super.update();
 		}
@@ -86,10 +95,34 @@ package
 			{
 				angle = FlxU.getAngle(velocity, new FlxPoint(0, 0)) + 90;
 			}
-			
 		}
 		
-		
+		public function shoot(): void
+		{
+			var direction:FlxPoint = new FlxPoint(0, 0);
+			if (FlxG.keys.UP)
+			{
+				--direction.y;
+			}
+			if (FlxG.keys.DOWN)
+			{
+				++direction.y;
+			}
+			if (FlxG.keys.LEFT)
+			{
+				--direction.x;
+			}
+			if (FlxG.keys.RIGHT)
+			{
+				++direction.x;
+			}
+			
+			if (direction.x || direction.y)
+			{
+				weapon.fireVector(direction, width + width * direction.x, height + height * direction.y);
+			}
+			
+		}
 	}
 
 }
