@@ -11,6 +11,7 @@ package
 	import Weapon;
 	import attributes.Attribute;
 	import attributes.WeaponPistolAttribute;
+	import attributes.*;
 	
 	/**
 	 * ...
@@ -54,18 +55,19 @@ package
 			drag.x = drag.y = 100
 			
 			SPEED = INITIAL_SPEED;
-			health = INITIAL_HEALTH;
+			MAX_HP = health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
-			WEAPON_PISTOL = 0;
+			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
+			REGEN = 0;
 
 			this.bulletGroup = bulletGroup;
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
-			
+						
 			addAttribute(new attributes.WeaponPistolAttribute);
 		}
 		
