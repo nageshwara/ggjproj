@@ -19,11 +19,16 @@ package
 			//Create player
 			player = new Player(FlxG.width/2, FlxG.height/2);
 			add(player);
+			
+			
+			var enemy:Enemy = new Enemy(FlxG.width / 4, FlxG.height / 4);
+			add(enemy);
 		}
 			
 		override public function update():void
 		{			
 			//Updates all the objects appropriately
 			super.update();
-		}	}
+		}
+	}
 }
