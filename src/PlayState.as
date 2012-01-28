@@ -13,6 +13,8 @@ package
 		
 		private var healthBar:FlxBar;
 		
+		private var debugText:FlxText;
+		
 		public static function getPlayer():Player
 		{
 			return PlayState(FlxG.state).player;
@@ -35,8 +37,16 @@ package
 			add(healthBar);
 			
 			enemies = new FlxGroup;
-			enemies.add(new Enemy(FlxG.width / 4, FlxG.height / 4));
+			for (var i:int = 0; i < 100; ++i)
+			{
+				var randomX:int = (FlxG.random() * FlxG.width);
+				var randomY:int = (FlxG.random() * FlxG.height);
+				enemies.add(new Enemy(randomX, randomY));
+			}
 			add(enemies);
+			
+			debugText = new FlxText(0, 0, 100, "Attack: 0");
+			add(debugText);
 		}
 		
 		override public function update():void
@@ -46,6 +56,8 @@ package
 			
 			//Updates all the objects appropriately
 			super.update();
+			
+			debugText.text = "Attack: " + player.ATK;
 		}
 		
 		private function collidePlayerEnemies(player:Player, enemy:Enemy): void
