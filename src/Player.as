@@ -1,5 +1,6 @@
 package  
 {
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
@@ -31,9 +32,10 @@ package
 			loadGraphic(ImgSprite, true, false, 57, 34);
 			addAnimation("default", [0]);
 			
-			speed = 50;
-			maxspeed = speed * 2;
-
+			speed = 100;
+			maxspeed = speed * 3;
+			maxVelocity = new FlxPoint(maxspeed, maxspeed);
+			drag.x = drag.y = 30
 		}
 		
 		override public function update(): void
@@ -45,25 +47,30 @@ package
 		
 		public function move(): void
 		{
-			var d_x:Number = 0;
-			var d_y:Number = 0;
+			var direction:FlxPoint = new FlxPoint(0, 0);
 			if (FlxG.keys.W)
 			{
-				--d_y;
+				--direction.y;
 			}
 			if (FlxG.keys.S)
 			{
-				++d_y;
+				++direction.y;
 			}
 			if (FlxG.keys.A)
 			{
-				--d_x;
+				--direction.x;
 			}
 			if (FlxG.keys.D)
 			{
-				++d_x;
+				++direction.x;
 			}
 			
+			acceleration = new FlxPoint(speed * direction.x, speed * direction.y);
+			
+			if (direction.x || direction.y)
+			{
+				angle = FlxU.getAngle(velocity, new FlxPoint(0, 0)) + 90;
+			}
 			
 		}
 		
