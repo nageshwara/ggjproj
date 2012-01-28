@@ -60,7 +60,7 @@ package
 			
 			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
-			health = INITIAL_HEALTH;
+			MAX_HP = health = INITIAL_HEALTH;
 			DEF = 1.25;
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;

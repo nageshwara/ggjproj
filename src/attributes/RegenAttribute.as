@@ -22,6 +22,7 @@ package attributes
 		override public function onAdd(character:Character):void
 		{
 			character.REGEN += REGEN_BOOST;
+			character.updateRegen(true);
 		}
 		
 		override public function onRemove(character:Character):void
