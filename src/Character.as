@@ -13,7 +13,9 @@ package
 		public var attributes:Array;
 		
 		// ATTRIBUTE MODIFIABLE VARIABLES
-		public var speed:Number;
+		public var SPEED:Number;
+		public var ATK:Number;
+		private var DEF:Number;
 		
 		
 		/**

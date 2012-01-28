@@ -27,8 +27,6 @@ package
 		
 		private var maxspeed:Number;
 		
-		private var DEF:Number;
-		
 		private var direction:Number;
 		
 		private var invulnerableTimer:Number;
@@ -55,7 +53,7 @@ package
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
 			drag.x = drag.y = 100
 			
-			speed = INITIAL_SPEED;
+			SPEED = INITIAL_SPEED;
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
 			
@@ -81,7 +79,7 @@ package
 		
 		override public function update(): void
 		{
-			maxspeed = speed * 2;
+			maxspeed = SPEED * 2;
 			
 			move();
 			shoot();
@@ -137,7 +135,7 @@ package
 				health = Math.max(health -= 10, 0);
 			}
 			
-			acceleration = new FlxPoint(speed * direction.x, speed * direction.y);
+			acceleration = new FlxPoint(SPEED * direction.x, SPEED * direction.y);
 			
 			if (direction.x || direction.y)
 			{

@@ -15,12 +15,12 @@ package attributes
 		
 		override public function onAdd(character:Character):void
 		{
-			character.speed += SPEED_BOOST;
+			character.SPEED += SPEED_BOOST;
 		}
 		
 		override public function onRemove(character:Character):void
 		{
-			character.speed -= SPEED_BOOST;
+			character.SPEED -= SPEED_BOOST;
 		}
 	}
 

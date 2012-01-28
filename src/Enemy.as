@@ -19,8 +19,6 @@ package
 		
 		public var maxspeed:Number;
 		
-		public var ATK:Number;
-		
 		// Current state
 		private var currentState:Function;
 		
@@ -36,7 +34,7 @@ package
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
 			
-			speed = DEFAULT_SPEED;
+			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
 			changeState("followPlayer");
 			
@@ -123,7 +121,7 @@ package
 			
 			if (distance > FRAME_HEIGHT)
 			{
-				velocity = VecUtil.scale(direction, speed);
+				velocity = VecUtil.scale(direction, SPEED);
 				faceVelocity();
 			}
 			else
