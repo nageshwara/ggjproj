@@ -63,6 +63,7 @@ package
 				var randomY:int = (FlxG.random() * FlxG.height);
 				enemies.add(new Enemy(randomX, randomY, enemyBullets));
 			}
+			enemies.add(new Enemy(300, 300, enemyBullets, true));
 			add(enemies);
 			add(enemyBullets);
 			
@@ -79,6 +80,7 @@ package
 			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
 			FlxG.overlap(player, enemyBullets, collidePlayerEnemyBullets);
 			FlxG.collide(player, items, collidePlayerItems);
+			FlxG.collide(enemies, enemies);
 			
 			FlxG.collide(player, enviro);
 			
