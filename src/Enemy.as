@@ -55,10 +55,10 @@ package
 			blinkTimer = BLINK_TIME;
 		}
 		
-		public override function kill(): void
+		public override function kill():void
 		{
 			transferAttributesToPlayer();
-			super();
+			super.kill();
 		}
 		
 		/**
