@@ -51,6 +51,11 @@ package
 			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
 		}
 		
+		public function get position():FlxPoint
+		{
+			return new FlxPoint(x, y);
+		}
+		
 		override public function update(): void
 		{
 			move();
