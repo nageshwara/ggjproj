@@ -137,6 +137,15 @@ package
 			return new FlxPoint(x, y);
 		}
 		
+		public function addAttributes(newAttributes:Array):void
+		{
+			var attribute:Attribute;
+			for each (attribute in newAttributes)
+			{
+				addAttribute(attribute);
+			}
+		}
+		
 		/**
 		 * Add a new attribute, and do whatever it does on adding
 		 * 

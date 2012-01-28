@@ -89,7 +89,6 @@ package
 						changeState("followPlayer");
 						break;
 				}
-				addAttribute(new AttackAttribute);
 			}
 			
 			ATK = 20;

@@ -1,5 +1,6 @@
 package
 {
+	import attributes.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
@@ -13,6 +14,8 @@ package
 		
 		public var enemies:FlxGroup;
 		public var enemyBullets:FlxGroup;
+		
+		public var boss:Enemy;
 		
 		public static var items:FlxGroup;
 		
@@ -62,13 +65,7 @@ package
 			
 			enemies = new FlxGroup();
 			enemyBullets = new FlxGroup();
-			for (var i:int = 0; i < 10; ++i)
-			{
-				var randomX:int = (FlxG.random() * FlxG.width);
-				var randomY:int = (FlxG.random() * FlxG.height);
-				enemies.add(new Enemy(randomX, randomY, enemyBullets));
-			}
-			enemies.add(new Enemy(300, 300, enemyBullets, true));
+			
 			add(enemies);
 			add(enemyBullets);
 			
@@ -77,6 +74,8 @@ package
 			
 			debugText = new FlxText(0, 0, 100, "Attack: 0");
 			add(debugText);
+			
+			resetLevel();
 		}
 		
 		override public function update():void
@@ -117,6 +116,62 @@ package
 			item.dropAttributeText();
 			item.transferAttributesToPlayer();
 			item.kill();
+		}
+		
+		public function resetLevel(advanceLevel:Boolean = false):void
+		{
+			var bossAttributes:Array = new Array();
+			if (boss != null)
+			{
+				bossAttributes = boss.attributes;
+			}
+			
+			
+			player.clearAttributes();
+			enemies.clear();
+			enemyBullets.clear();
+			playerBullets.clear();
+			
+			for (var i:int = 0; i < 10; ++i)
+			{
+				var randomX:int = (FlxG.random() * FlxG.width);
+				var randomY:int = (FlxG.random() * FlxG.height);
+				
+				var enemy:Enemy = new Enemy(randomX, randomY, enemyBullets);
+				switch (Math.floor(FlxG.random() * 7))
+				{
+					default:
+					case 0:
+						enemy.addAttribute(new AttackAttribute);
+						break;
+					case 1:
+						enemy.addAttribute(new DefenseAttribute);
+						break;
+					case 2:
+						enemy.addAttribute(new RegenAttribute);
+						break;
+					case 3:
+						enemy.addAttribute(new SpeedAttribute);
+						break;
+					case 4:
+						enemy.addAttribute(new WeaponPistolAttribute);
+						break;
+					case 5:
+						enemy.addAttribute(new WeaponSideAttribute);
+						break;
+					case 6:
+						enemy.addAttribute(new WeaponRearAttribute);
+						break;
+				}
+				enemies.add();
+			}
+			boss = new Enemy(300, 300, enemyBullets, true);
+			boss.addAttributes(bossAttributes);
+			enemies.add(boss);
+			
+			player.x = FlxG.width / 2;
+			player.y = FlxG.height / 2;
+			player.health = Player.INITIAL_HEALTH;
 		}
 	}
 }
