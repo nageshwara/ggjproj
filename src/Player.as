@@ -19,6 +19,9 @@ package
 		[Embed(source = '../data/shark_blue.png')] private var ImgSprite:Class;
 		[Embed(source = '../data/bullet_pistol.png')] private var ImgBulletPistol:Class;
 		
+		public static const FRAME_WIDTH:int = 40;
+		public static const FRAME_HEIGHT:int = 40;
+		
 		private var speed:Number;
 		private var maxspeed:Number;
 		
@@ -38,7 +41,7 @@ package
 		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
-			loadGraphic(ImgSprite, true, false, 57, 34);
+			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
 			
 			speed = 150;
