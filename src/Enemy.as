@@ -4,6 +4,7 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
+	import attributes.*;
 	/**
 	 * ...
 	 * @author Jason Hamilton
@@ -17,7 +18,7 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
-		public static const INITIAL_HEALTH:int = 100;
+		public static const INITIAL_HEALTH:int = 20;
 		
 		public var blinkTimer:Number;
 		public static const BLINK_TIME:Number = 1;
@@ -44,7 +45,22 @@ package
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
 			
-			changeState("followPlayer");
+			switch (Math.floor(FlxG.random() * 3))
+			{
+				default:
+					changeState("idle");
+					break;
+				case 0:
+					changeState("spinLeft");
+					break;
+				case 1:
+					changeState("spinRight");
+					break;
+				case 2:
+					changeState("followPlayer");
+					break;
+			}
+			addAttribute(new AttackAttribute);
 			
 			ATK = 20;
 		}

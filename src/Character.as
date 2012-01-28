@@ -124,6 +124,9 @@ package
 		 */
 		public function addAttribute(attribute:Attribute):void
 		{
+			// Getting weird compile errors if I don't cast to Array.
+			// It'll do for now.
+			(attributes as Array).push(attribute);
 			attribute.onAdd(this);
 		}
 		
@@ -134,6 +137,9 @@ package
 		 */
 		public function removeAttribute(attribute:Attribute):void
 		{
+			// Getting weird compile errors if I don't cast to Array.
+			// It'll do for now.
+			(attributes as Array).splice((attributes as Array).indexOf(attribute), 1);
 			attribute.onRemove(this);
 		}
 	}
