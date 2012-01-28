@@ -1,9 +1,11 @@
 package  
 {
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
+	import attributes.*;
 	/**
 	 * ...
 	 * @author Jason Hamilton
@@ -12,11 +14,26 @@ package
 	{
 		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
 		
-		public static const DEFAULT_SPEED:Number = 50;
-		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
+		// SPRITE INFO
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
+		// DEFAULT STATS
+		public static const DEFAULT_SPEED:Number = 50;
+		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
+		public static const INITIAL_HEALTH:int = 20;
+		
+		// WEAPONS
+		private var wpnPistol:Weapon;
+		private var wpnSide:Weapon;
+		private var wpnRear:Weapon;
+		private var weapons:FlxGroup;
+		
+		// BLINKING
+		public var blinkTimer:Number;
+		public static const BLINK_TIME:Number = 1;
+		
+		// ETC
 		public var maxspeed:Number;
 		
 		// Current state
@@ -28,17 +45,56 @@ package
 		 * @param	X
 		 * @param	Y
 		 */
-		public function Enemy(X:Number, Y:Number): void
+		public function Enemy(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
+			addAnimation("hurt", [0,1], 30);
 			
 			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
-			changeState("followPlayer");
+			health = INITIAL_HEALTH;
+			DEF = 1.25;
+			
+			weapons = new FlxGroup();
+			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
+			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
+			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
+			weapons.add(wpnPistol);
+			weapons.add(wpnSide);
+			weapons.add(wpnRear);
+			
+			switch (Math.floor(FlxG.random() * 3))
+			{
+				default:
+					changeState("idle");
+					break;
+				case 0:
+					changeState("spinLeft");
+					break;
+				case 1:
+					changeState("spinRight");
+					break;
+				case 2:
+					changeState("followPlayer");
+					break;
+			}
+			addAttribute(new AttackAttribute);
 			
 			ATK = 20;
+		}
+		
+		public override function hurt(damage:Number): void
+		{
+			super.hurt(damage / DEF);
+			blinkTimer = BLINK_TIME;
+		}
+		
+		public override function kill():void
+		{
+			dropItem();
+			super.kill();
 		}
 		
 		/**
@@ -57,6 +113,15 @@ package
 		 */
 		override public function update(): void
 		{
+			if (blinkTimer > 0)
+			{
+				blinkTimer = Math.max(blinkTimer - FlxG.elapsed, 0);
+				play("hurt");
+			}
+			else
+			{
+				play("default");
+			}
 			currentState();
 			super.update();
 		}
@@ -129,6 +194,18 @@ package
 				velocity.x = 0;
 				velocity.y = 0;
 				faceDirection(direction);
+			}
+			
+			fireWeapons();
+		}
+		
+		public function fireWeapons():void
+		{
+			for (var i:Number = 0; i < weapons.members.length-1; ++i)
+			{
+				var weapon:Weapon = weapons.members[i];
+				weapon.update();
+				weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
 			}
 		}
 	}

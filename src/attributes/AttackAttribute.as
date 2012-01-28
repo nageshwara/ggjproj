@@ -4,25 +4,24 @@ package attributes
 	 * ...
 	 * @author Jason Hamilton
 	 */
-	public class SpeedAttribute extends Attribute
+	public class AttackAttribute extends Attribute
 	{
-		public static var SPEED_BOOST:Number = 10;
+		public static var ATTACK_BOOST:Number = 10;
 		
-		public function SpeedAttribute() 
+		public function AttackAttribute() 
 		{
 			super();
-			attributeType = ATT_SPD;
+			attributeType = ATT_ATK;
 		}
 		
 		override public function onAdd(character:Character):void
 		{
-			character.SPEED += SPEED_BOOST;
+			character.ATK += ATTACK_BOOST;
 		}
 		
 		override public function onRemove(character:Character):void
 		{
-			character.SPEED -= SPEED_BOOST;
+			character.ATK -= ATTACK_BOOST;
 		}
 	}
-
 }
