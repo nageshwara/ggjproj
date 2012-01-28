@@ -10,6 +10,7 @@ package
 	
 	import Weapon;
 	import attributes.Attribute;
+	import attributes.WeaponPistolAttribute;
 	
 	/**
 	 * ...
@@ -56,17 +57,16 @@ package
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
-			WEAPON_PISTOL = 5;
-			WEAPON_SIDE = 5;
-			WEAPON_REAR = 5;
+			WEAPON_PISTOL = 0;
+			WEAPON_SIDE = 0;
+			WEAPON_REAR = 0;
 
 			this.bulletGroup = bulletGroup;
-			updateWeapon(Attribute.ATT_PISTOL, WEAPON_PISTOL);
-			updateWeapon(Attribute.ATT_SIDE, WEAPON_SIDE);
-			updateWeapon(Attribute.ATT_REAR, WEAPON_REAR);
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
+			
+			addAttribute(new attributes.WeaponPistolAttribute);
 		}
 		
 		public override function hurt(damage:Number): void
@@ -171,7 +171,7 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				for (var i:Number = 0; i < weapons.length; i++)
+				for (var i:Number = 0; i < weapons.members.length; i++)
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();
