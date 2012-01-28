@@ -79,6 +79,7 @@ package
 			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
 			FlxG.overlap(player, enemyBullets, collidePlayerEnemyBullets);
 			FlxG.collide(player, items, collidePlayerItems);
+			FlxG.collide(enemies, enemies);
 			
 			FlxG.collide(player, enviro);
 			
