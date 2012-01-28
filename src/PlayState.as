@@ -10,6 +10,8 @@ package
 		public var playerBullets:FlxGroup;
 		
 		public var enemies:FlxGroup;
+		public var enemyBullets:FlxGroup;
+		
 		public static var items:FlxGroup;
 		
 		private var healthBar:FlxBar;
@@ -47,14 +49,16 @@ package
 			healthBar.trackParent(0, -24);
 			add(healthBar);
 			
-			enemies = new FlxGroup;
+			enemies = new FlxGroup();
+			enemyBullets = new FlxGroup();
 			for (var i:int = 0; i < 10; ++i)
 			{
 				var randomX:int = (FlxG.random() * FlxG.width);
 				var randomY:int = (FlxG.random() * FlxG.height);
-				enemies.add(new Enemy(randomX, randomY));
+				enemies.add(new Enemy(randomX, randomY, enemyBullets));
 			}
 			add(enemies);
+			add(enemyBullets);
 			
 			items = new FlxGroup;
 			add(items);
@@ -67,6 +71,7 @@ package
 		{
 			FlxG.collide(player, enemies, collidePlayerEnemies);
 			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
+			FlxG.overlap(player, enemyBullets, collidePlayerEnemyBullets);
 			FlxG.collide(player, items, collidePlayerItems);
 			
 			//Updates all the objects appropriately
@@ -80,9 +85,15 @@ package
 			player.hurt(enemy.ATK);
 		}
 		
+		private function collidePlayerEnemyBullets(player:Player, bullet:Bullet): void
+		{
+			player.hurt(bullet.ATK);
+			bullet.kill();
+		}
+		
 		private function collidePlayerBulletsEnemies(bullet:Bullet, enemy:Enemy): void
 		{
-			enemy.hurt(player.ATK);
+			enemy.hurt(bullet.ATK);
 			bullet.kill();
 		}
 		
