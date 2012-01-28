@@ -8,6 +8,8 @@ package
 		public var player:Player;
 		public var playerBullets:FlxGroup;
 		
+		public var enviro:Enviro;
+		
 		public var enemies:FlxGroup;
 		
 		private var healthBar:FlxBar;
@@ -21,6 +23,10 @@ package
 		{
 			//Set the background color to light gray (0xAARRGGBB)
 			FlxG.bgColor = 0xffaaaaaa;
+			
+			/// Create enviro
+			enviro = new Enviro();
+			add(enviro);
 			
 			//Create player
 			playerBullets = new FlxGroup();
@@ -41,6 +47,8 @@ package
 		override public function update():void
 		{
 			FlxG.collide(player, enemies, collidePlayerEnemies);
+			
+			FlxG.collide(player, enviro);
 			
 			//Updates all the objects appropriately
 			super.update();
