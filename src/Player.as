@@ -41,10 +41,10 @@ package
 			loadGraphic(ImgSprite, true, false, 57, 34);
 			addAnimation("default", [0]);
 			
-			speed = 100;
-			maxspeed = speed * 3;
+			speed = 150;
+			maxspeed = speed * 2;
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
-			drag.x = drag.y = 30
+			drag.x = drag.y = 100
 			
 			health = 100;
 			
