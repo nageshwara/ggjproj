@@ -8,7 +8,7 @@ package
 	 * ...
 	 * @author Jason Hamilton
 	 */
-	public class Enemy extends FlxSprite
+	public class Enemy extends Character
 	{
 		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
 		
@@ -17,7 +17,6 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
-		public var speed:Number;
 		public var maxspeed:Number;
 		
 		// Current state
@@ -73,11 +72,6 @@ package
 		private function get player():Player
 		{
 			return PlayState.getPlayer();
-		}
-		
-		public function get position():FlxPoint
-		{
-			return new FlxPoint(x, y);
 		}
 		
 		public function get direction():FlxPoint

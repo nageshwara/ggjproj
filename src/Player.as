@@ -14,7 +14,7 @@ package
 	 * ...
 	 * @author Doug Macdonald
 	 */
-	public class Player extends FlxSprite
+	public class Player extends Character
 	{
 		[Embed(source = '../data/shark_blue.png')] private var ImgSprite:Class;
 		[Embed(source = '../data/bullet_pistol.png')] private var ImgBulletPistol:Class;
@@ -22,7 +22,9 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
-		private var speed:Number;
+		public static const INITIAL_SPEED:Number = 150;
+		public static const INITIAL_HEALTH:int = 100;
+		
 		private var maxspeed:Number;
 		
 		private var direction:Number;
@@ -44,23 +46,19 @@ package
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
 			
-			speed = 150;
-			maxspeed = speed * 2;
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
 			drag.x = drag.y = 100
 			
-			health = 100;
+			speed = INITIAL_SPEED;
+			health = INITIAL_HEALTH;
 			
 			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
 		}
 		
-		public function get position():FlxPoint
-		{
-			return new FlxPoint(x, y);
-		}
-		
 		override public function update(): void
 		{
+			maxspeed = speed * 2;
+			
 			move();
 			shoot();
 			
