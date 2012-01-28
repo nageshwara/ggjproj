@@ -4,6 +4,9 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
+	import org.flixel.plugin.photonstorm.FlxBar;
+	
+	
 	/**
 	 * ...
 	 * @author 
@@ -36,6 +39,8 @@ package
 			maxspeed = speed * 3;
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
 			drag.x = drag.y = 30
+			
+			health = 100;
 		}
 		
 		override public function update(): void
@@ -63,6 +68,16 @@ package
 			if (FlxG.keys.D)
 			{
 				++direction.x;
+			}
+			
+			// Debug keys
+			if (FlxG.keys.NINE)
+			{
+				health = Math.min(health += 10, 100);
+			}
+			if (FlxG.keys.EIGHT)
+			{
+				health = Math.max(health -= 10, 0);
 			}
 			
 			acceleration = new FlxPoint(speed * direction.x, speed * direction.y);

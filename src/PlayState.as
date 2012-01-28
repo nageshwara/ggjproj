@@ -1,15 +1,13 @@
 package
 {
 	import org.flixel.*;
-
+	import org.flixel.plugin.photonstorm.*;
+	
 	public class PlayState extends FlxState
 	{
-		public var level:FlxTilemap;
-		public var exit:FlxSprite;
-		public var coins:FlxGroup;
 		public var player:Player;
-		public var score:FlxText;
-		public var status:FlxText;
+		
+		private var healthBar:FlxBar;
 		
 		override public function create():void
 		{
@@ -20,6 +18,10 @@ package
 			player = new Player(FlxG.width/2, FlxG.height/2);
 			add(player);
 			
+			// Create health bar
+			healthBar = new FlxBar(16, 64, FlxBar.FILL_LEFT_TO_RIGHT, 64, 8, player, "health");
+			healthBar.trackParent(0, -24);
+			add(healthBar);
 			
 			var enemy:Enemy = new Enemy(FlxG.width / 4, FlxG.height / 4);
 			add(enemy);
