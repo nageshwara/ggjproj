@@ -142,28 +142,28 @@ package
 				{
 					default:
 					case 0:
-						enemy.addAttribute(new AttackAttribute);
+						enemy.addAttribute(new AttackAttribute());
 						break;
 					case 1:
-						enemy.addAttribute(new DefenseAttribute);
+						enemy.addAttribute(new DefenseAttribute());
 						break;
 					case 2:
-						enemy.addAttribute(new RegenAttribute);
+						enemy.addAttribute(new RegenAttribute());
 						break;
 					case 3:
-						enemy.addAttribute(new SpeedAttribute);
+						enemy.addAttribute(new SpeedAttribute());
 						break;
 					case 4:
-						enemy.addAttribute(new WeaponPistolAttribute);
+						enemy.addAttribute(new WeaponPistolAttribute());
 						break;
 					case 5:
-						enemy.addAttribute(new WeaponSideAttribute);
+						enemy.addAttribute(new WeaponPistolAttribute());
 						break;
 					case 6:
-						enemy.addAttribute(new WeaponRearAttribute);
+						enemy.addAttribute(new WeaponPistolAttribute());
 						break;
 				}
-				enemies.add();
+				enemies.add(enemy);
 			}
 			boss = new Enemy(300, 300, enemyBullets, true);
 			boss.addAttributes(bossAttributes);

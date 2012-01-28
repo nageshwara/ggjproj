@@ -9,8 +9,6 @@ package
 	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
 	import Weapon;
-	import attributes.Attribute;
-	import attributes.WeaponPistolAttribute;
 	import attributes.*;
 	
 	/**
@@ -69,6 +67,12 @@ package
 			invulnerableTime = 3;
 						
 			addAttribute(new attributes.WeaponPistolAttribute);
+		}
+		
+		override public function clearAttributes():void
+		{
+			super.clearAttributes();
+			addAttribute(new WeaponPistolAttribute());
 		}
 		
 		public override function hurt(damage:Number): void
