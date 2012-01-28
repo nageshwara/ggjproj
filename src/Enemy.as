@@ -24,12 +24,6 @@ package
 		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
 		public static const INITIAL_HEALTH:int = 20;
 		
-		// WEAPONS
-		private var wpnPistol:Weapon;
-		private var wpnSide:Weapon;
-		private var wpnRear:Weapon;
-		private var weapons:FlxGroup;
-		
 		// BLINKING
 		public var blinkTimer:Number;
 		public static const BLINK_TIME:Number = 1;
@@ -68,14 +62,14 @@ package
 			maxspeed = DEFAULT_MAX_SPEED;
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
+			WEAPON_PISTOL = 1;
+			WEAPON_SIDE = 0;
+			WEAPON_REAR = 0;
 			
-			weapons = new FlxGroup();
-			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
-			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
-			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
-			weapons.add(wpnPistol);
-			weapons.add(wpnSide);
-			weapons.add(wpnRear);
+			this.bulletGroup = bulletGroup;
+			updateWeapon(Attribute.ATT_PISTOL, WEAPON_PISTOL);
+			updateWeapon(Attribute.ATT_SIDE, WEAPON_SIDE);
+			updateWeapon(Attribute.ATT_REAR, WEAPON_REAR);
 			
 			if (isBoss)
 			{

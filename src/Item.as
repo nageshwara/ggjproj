@@ -37,11 +37,11 @@ package
 			var attribute:Attribute;
 			for each (attribute in attributes)
 			{
-				if (attribute.getType() == attribute.ATT_ATK)
+				if (attribute.getType() == Attribute.ATT_ATK)
 				{
 					loadGraphic(ImgItemATK);
 				}
-				else if (attribute.getType() == attribute.ATT_SPD)
+				else if (attribute.getType() == Attribute.ATT_SPD)
 				{
 					loadGraphic(ImgItemSPD);
 				}
