@@ -164,12 +164,7 @@ package
 		{
 			angle -= 1;
 			
-			for (var i:Number = 0; i < weapons.members.length-1; ++i)
-			{
-				var weapon:Weapon = weapons.members[i];
-				weapon.update();
-				weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
-			}
+			
 		}
 		
 		/**
@@ -201,6 +196,18 @@ package
 				velocity.x = 0;
 				velocity.y = 0;
 				faceDirection(direction);
+			}
+			
+			fireWeapons();
+		}
+		
+		public function fireWeapons():void
+		{
+			for (var i:Number = 0; i < weapons.members.length-1; ++i)
+			{
+				var weapon:Weapon = weapons.members[i];
+				weapon.update();
+				weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
 			}
 		}
 	}

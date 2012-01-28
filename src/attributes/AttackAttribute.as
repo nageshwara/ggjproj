@@ -23,5 +23,4 @@ package attributes
 			character.ATK -= ATTACK_BOOST;
 		}
 	}
-
 }
