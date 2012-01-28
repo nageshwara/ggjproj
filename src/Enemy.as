@@ -14,8 +14,8 @@ package
 		
 		public static const DEFAULT_SPEED:Number = 50;
 		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
-		public static const FRAME_WIDTH:int = 57;
-		public static const FRAME_HEIGHT:int = 34;
+		public static const FRAME_WIDTH:int = 40;
+		public static const FRAME_HEIGHT:int = 40;
 		
 		public var speed:Number;
 		public var maxspeed:Number;
