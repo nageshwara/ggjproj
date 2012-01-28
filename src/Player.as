@@ -56,6 +56,7 @@ package
 			SPEED = INITIAL_SPEED;
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
+			ATK = 10;
 			
 			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
 			

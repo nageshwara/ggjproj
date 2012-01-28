@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.BaseTypes.Bullet;
 	
 	public class PlayState extends FlxState
 	{
@@ -41,6 +42,7 @@ package
 		override public function update():void
 		{
 			FlxG.collide(player, enemies, collidePlayerEnemies);
+			FlxG.collide(playerBullets, enemies, collidePlayerBulletsEnemies);
 			
 			//Updates all the objects appropriately
 			super.update();
@@ -49,6 +51,12 @@ package
 		private function collidePlayerEnemies(player:Player, enemy:Enemy): void
 		{
 			player.hurt(enemy.ATK);
+		}
+		
+		private function collidePlayerBulletsEnemies(bullet:Bullet, enemy:Enemy): void
+		{
+			enemy.hurt(player.ATK);
+			bullet.kill();
 		}
 	}
 }

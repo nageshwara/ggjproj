@@ -15,7 +15,7 @@ package
 		// ATTRIBUTE MODIFIABLE VARIABLES
 		public var SPEED:Number;
 		public var ATK:Number;
-		private var DEF:Number;
+		public var DEF:Number;
 		
 		
 		/**
@@ -31,6 +31,29 @@ package
 		}
 		
 		/**
+		 * Give attributes to another character
+		 * 
+		 * @param	character
+		 */
+		public function transferAttributes(character:Character):void
+		{
+			var attribute:Attribute;
+			for each (attribute in attributes)
+			{
+				character.addAttribute(attribute);
+				removeAttribute(attribute);
+			}
+		}
+		
+		/**
+		 * Transfer attributes to the player character.
+		 */
+		public function transferAttributesToPlayer():void
+		{
+			transferAttributes(PlayState.getPlayer());
+		}
+		
+		/**
 		 * Copy attributes from another character.
 		 * Currently uses the same instances, not copies,
 		 * under the assumption that Attributes don't have
@@ -40,7 +63,7 @@ package
 		 */
 		public function copyAttributes(character:Character):void
 		{
-			var attribute:attributes.Attribute;
+			var attribute:Attribute;
 			for each (attribute in character.attributes)
 			{
 				addAttribute(attribute);
