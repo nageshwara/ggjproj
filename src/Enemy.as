@@ -13,6 +13,7 @@ package
 	public class Enemy extends Character
 	{
 		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
+		[Embed(source = '../data/shark_boss.png')] private var BossImgSprite:Class;
 		
 		// SPRITE INFO
 		public static const FRAME_WIDTH:int = 40;
@@ -36,6 +37,8 @@ package
 		// ETC
 		public var maxspeed:Number;
 		
+		public var isBoss:Boolean;
+		
 		// Current state
 		private var currentState:Function;
 		
@@ -45,10 +48,19 @@ package
 		 * @param	X
 		 * @param	Y
 		 */
-		public function Enemy(X:Number, Y:Number, bulletGroup:FlxGroup): void
+		public function Enemy(X:Number, Y:Number, bulletGroup:FlxGroup, boss:Boolean = false): void
 		{
+			isBoss = boss;
 			super(X, Y);
-			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+			
+			if (isBoss)
+			{
+				loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+			}
+			else
+			{
+				loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+			}
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
@@ -65,22 +77,29 @@ package
 			weapons.add(wpnSide);
 			weapons.add(wpnRear);
 			
-			switch (Math.floor(FlxG.random() * 3))
+			if (isBoss)
 			{
-				default:
-					changeState("idle");
-					break;
-				case 0:
-					changeState("spinLeft");
-					break;
-				case 1:
-					changeState("spinRight");
-					break;
-				case 2:
-					changeState("followPlayer");
-					break;
+				changeState("followPlayer");
 			}
-			addAttribute(new AttackAttribute);
+			else
+			{
+				switch (Math.floor(FlxG.random() * 3))
+				{
+					default:
+						changeState("idle");
+						break;
+					case 0:
+						changeState("spinLeft");
+						break;
+					case 1:
+						changeState("spinRight");
+						break;
+					case 2:
+						changeState("followPlayer");
+						break;
+				}
+				addAttribute(new AttackAttribute);
+			}
 			
 			ATK = 20;
 		}
@@ -93,8 +112,17 @@ package
 		
 		public override function kill():void
 		{
-			dropItem();
-			super.kill();
+			if (isBoss)
+			{
+				player.transferAttributes(this);
+				health = Player.INITIAL_HEALTH;
+				revive();
+			}
+			else
+			{
+				dropItem();
+				super.kill();
+			}
 		}
 		
 		/**

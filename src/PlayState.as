@@ -63,6 +63,7 @@ package
 				var randomY:int = (FlxG.random() * FlxG.height);
 				enemies.add(new Enemy(randomX, randomY, enemyBullets));
 			}
+			enemies.add(new Enemy(300, 300, enemyBullets, true));
 			add(enemies);
 			add(enemyBullets);
 			
