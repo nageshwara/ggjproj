@@ -10,6 +10,7 @@ package
 		public var playerBullets:FlxGroup;
 		
 		public var enemies:FlxGroup;
+		public var enemyBullets:FlxGroup;
 		
 		private var healthBar:FlxBar;
 		
