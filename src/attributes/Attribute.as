@@ -18,7 +18,11 @@ package attributes
 		
 		public function Attribute() 
 		{
-			
+		}
+		
+		public function get name():String
+		{
+			return "Attribute";
 		}
 		
 		public function onAdd(character:Character):void

@@ -25,6 +25,11 @@ package
 			return PlayState(FlxG.state).player;
 		}
 		
+		public static function dropText(x:Number, y:Number, text:String):void
+		{
+			PlayState(FlxG.state).add(new DropText(x, y, text));
+		}
+		
 		public static function addToGroup(object:FlxObject, group:FlxGroup):void
 		{
 			if (!group)
@@ -109,6 +114,7 @@ package
 		
 		private function collidePlayerItems(player:Player, item:Item): void
 		{
+			item.dropAttributeText();
 			item.transferAttributesToPlayer();
 			item.kill();
 		}

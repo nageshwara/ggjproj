@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_SIDE;
 		}
 		
+		override public function get name():String
+		{
+			return "SIDE ATK UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.WEAPON_SIDE += SIDE_BOOST;

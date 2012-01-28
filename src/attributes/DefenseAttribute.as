@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_DEF;
 		}
 		
+		override public function get name():String
+		{
+			return "DEF UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.DEF += DEFENSE_BOOST;

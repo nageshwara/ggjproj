@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_PISTOL;
 		}
 		
+		override public function get name():String
+		{
+			return "FRONT ATK UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.WEAPON_PISTOL += PISTOL_BOOST;

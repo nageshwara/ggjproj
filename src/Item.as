@@ -22,7 +22,16 @@ package
 			super(x, y);
 		}
 		
-		public function updateImage(): void
+		public function dropAttributeText():void
+		{
+			var attribute:Attribute;
+			for each (attribute in attributes)
+			{
+				PlayState.dropText(x, y, attribute.name);
+			}
+		}
+		
+		public function updateImage():void
 		{
 			// Only called after an item's attributes change (probably only immediately after creation)
 			var attribute:Attribute;

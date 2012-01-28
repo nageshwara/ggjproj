@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_REAR;
 		}
 		
+		override public function get name():String
+		{
+			return "REAR ATK UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.WEAPON_REAR += REAR_BOOST;

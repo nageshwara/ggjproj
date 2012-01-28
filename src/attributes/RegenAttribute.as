@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_REGEN;
 		}
 		
+		override public function get name():String
+		{
+			return "REGEN UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.REGEN += REGEN_BOOST;
