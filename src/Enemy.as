@@ -220,7 +220,7 @@ package
 		
 		public function fireWeapons():void
 		{
-			for (var i:Number = 0; i < weapons.members.length-1; i++)
+			for (var i:Number = 0; i < weapons.length; i++)
 			{
 				var weapon:Weapon = weapons.members[i];
 				weapon.update();
