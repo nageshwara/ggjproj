@@ -59,10 +59,11 @@ package
 			SPEED = INITIAL_SPEED;
 			health = INITIAL_HEALTH;
 			DEF = 1.25;
+			ATK = 10;
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 1;
 			WEAPON_REAR = 1;
-			
+
 			weapons = new FlxGroup();
 			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
 			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);

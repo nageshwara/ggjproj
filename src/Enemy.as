@@ -17,6 +17,10 @@ package
 		public static const FRAME_WIDTH:int = 40;
 		public static const FRAME_HEIGHT:int = 40;
 		
+		public static const INITIAL_HEALTH:int = 100;
+		
+		public var blinkTimer:Number;
+		public static const BLINK_TIME:Number = 1;
 		public var maxspeed:Number;
 		
 		// Current state
@@ -33,12 +37,28 @@ package
 			super(X, Y);
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
+			addAnimation("hurt", [0,1], 30);
 			
 			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
+			health = INITIAL_HEALTH;
+			DEF = 1.25;
+			
 			changeState("followPlayer");
 			
 			ATK = 20;
+		}
+		
+		public override function hurt(damage:Number): void
+		{
+			super.hurt(damage / DEF);
+			blinkTimer = BLINK_TIME;
+		}
+		
+		public override function kill():void
+		{
+			transferAttributesToPlayer();
+			super.kill();
 		}
 		
 		/**
@@ -57,6 +77,15 @@ package
 		 */
 		override public function update(): void
 		{
+			if (blinkTimer > 0)
+			{
+				blinkTimer = Math.max(blinkTimer - FlxG.elapsed, 0);
+				play("hurt");
+			}
+			else
+			{
+				play("default");
+			}
 			currentState();
 			super.update();
 		}
