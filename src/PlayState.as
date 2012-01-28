@@ -1,5 +1,8 @@
 package
 {
+	import Actors.BaseBoss;
+	import Actors.Hero;
+	
 	import org.flixel.*;
 
 	public class PlayState extends FlxState
@@ -7,7 +10,11 @@ package
 		public var level:FlxTilemap;
 		public var exit:FlxSprite;
 		public var coins:FlxGroup;
-		public var player:FlxSprite;
+		
+		
+		public var player:Hero;
+		public var villain:BaseBoss;
+		
 		public var score:FlxText;
 		public var status:FlxText;
 		
@@ -85,43 +92,18 @@ package
 			createCoin(13,26);
 			createCoin(17,20);
 			createCoin(18,20);
-			
-			//Top right coins
-			createCoin(21,4);
-			createCoin(26,2);
-			createCoin(29,2);
-			createCoin(31,5);
-			createCoin(34,5);
-			createCoin(36,8);
-			createCoin(33,11);
-			createCoin(31,11);
-			createCoin(29,11);
-			createCoin(27,11);
-			createCoin(25,11);
-			createCoin(36,14);
-			
-			//Bottom right coins
-			createCoin(38,17);
-			createCoin(33,17);
-			createCoin(28,19);
-			createCoin(25,20);
-			createCoin(18,26);
-			createCoin(22,26);
-			createCoin(26,26);
-			createCoin(30,26);
-
 			add(coins);
 			
 			//Create player (a red box)
-			player = new FlxSprite(FlxG.width/2 - 5);
-			player.makeGraphic(10,12,0xffaa1111);
-			player.maxVelocity.x = 80;
-			player.maxVelocity.y = 200;
-			player.acceleration.y = 200;
-			player.drag.x = player.maxVelocity.x*4;
+			player = new Hero(FlxG.width/2 - 5);
 			add(player);
 			
-			score = new FlxText(2,2,80);
+			
+			villain = new BaseBoss(35*8,25*8);
+			add(villain);
+			
+			
+			/*score = new FlxText(2,2,80);
 			score.shadow = 0xff000000;
 			score.text = "SCORE: "+(coins.countDead()*100);
 			add(score);
@@ -134,7 +116,7 @@ package
 				case 0: status.text = "Collect coins."; break;
 				case 1: status.text = "Aww, you died!"; break;
 			}
-			add(status);
+			add(status);*/
 		}
 		
 		//creates a new coin located on the specified tile
@@ -167,6 +149,7 @@ package
 			
 			//Finally, bump the player up against the level
 			FlxG.collide(level,player);
+			FlxG.collide(level,villain);
 			
 			//Check for player lose conditions
 			if(player.y > FlxG.height)
@@ -180,12 +163,12 @@ package
 		public function getCoin(Coin:FlxSprite,Player:FlxSprite):void
 		{
 			Coin.kill();
-			score.text = "SCORE: "+(coins.countDead()*100);
+			/*score.text = "SCORE: "+(coins.countDead()*100);
 			if(coins.countLiving() == 0)
 			{
 				status.text = "Find the exit.";
 				exit.exists = true;
-			}
+			}*/
 		}
 		
 		//Called whenever the player touches the exit
