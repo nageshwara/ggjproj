@@ -27,7 +27,12 @@ package
 		
 		private var maxspeed:Number;
 		
+		private var DEF:Number;
+		
 		private var direction:Number;
+		
+		private var invulnerableTimer:Number;
+		private var invulnerableTime:Number;
 		
 		public var EAST:Number = 0;
 		public var SOUTHEAST:Number = 45;
@@ -45,14 +50,33 @@ package
 			super(X, Y);
 			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 			addAnimation("default", [0]);
+			addAnimation("hurt", [0,1], 30);
 			
 			maxVelocity = new FlxPoint(maxspeed, maxspeed);
 			drag.x = drag.y = 100
 			
 			speed = INITIAL_SPEED;
 			health = INITIAL_HEALTH;
+			DEF = 1.25;
 			
 			weapon = new Weapon(this, bulletGroup, 1, 300, 100, 50);
+			
+			invulnerableTimer = 0;
+			invulnerableTime = 3;
+		}
+		
+		public override function hurt(damage:Number): void
+		{
+			if (!invulnerableTimer)
+			{
+				invulnerableTimer = invulnerableTime;
+				super.hurt(damage / DEF);
+			}
+		}
+		
+		public override function kill(): void
+		{
+			// TODO: actual logic when the player dies
 		}
 		
 		override public function update(): void
@@ -61,6 +85,24 @@ package
 			
 			move();
 			shoot();
+			
+			if (invulnerableTimer > 0)
+			{
+				invulnerableTimer -= FlxG.elapsed;
+			}
+			if (invulnerableTimer < 0)
+			{
+				invulnerableTimer = 0;
+			}
+			if (invulnerableTimer > 0)
+			{
+				play("hurt");
+			}
+			else
+			{
+				play("default");
+			}
+			
 			
 			super.update();
 		}

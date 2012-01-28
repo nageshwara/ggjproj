@@ -19,6 +19,8 @@ package
 		
 		public var maxspeed:Number;
 		
+		public var ATK:Number;
+		
 		// Current state
 		private var currentState:Function;
 		
@@ -37,6 +39,8 @@ package
 			speed = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
 			changeState("followPlayer");
+			
+			ATK = 20;
 		}
 		
 		/**

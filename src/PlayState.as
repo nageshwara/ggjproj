@@ -8,6 +8,8 @@ package
 		public var player:Player;
 		public var playerBullets:FlxGroup;
 		
+		public var enemies:FlxGroup;
+		
 		private var healthBar:FlxBar;
 		
 		public static function getPlayer():Player
@@ -31,14 +33,22 @@ package
 			healthBar.trackParent(0, -24);
 			add(healthBar);
 			
-			var enemy:Enemy = new Enemy(FlxG.width / 4, FlxG.height / 4);
-			add(enemy);
+			enemies = new FlxGroup;
+			enemies.add(new Enemy(FlxG.width / 4, FlxG.height / 4));
+			add(enemies);
 		}
 		
 		override public function update():void
-		{			
+		{
+			FlxG.collide(player, enemies, collidePlayerEnemies);
+			
 			//Updates all the objects appropriately
 			super.update();
+		}
+		
+		private function collidePlayerEnemies(player:Player, enemy:Enemy): void
+		{
+			player.hurt(enemy.ATK);
 		}
 	}
 }
