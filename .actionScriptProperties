@@ -29,7 +29,6 @@
   </compiler>
   <applications>
     <application path="Main.as"/>
-    <application path="ggjproj.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

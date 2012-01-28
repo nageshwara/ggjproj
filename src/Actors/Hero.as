@@ -1,5 +1,7 @@
 package Actors
 {
+	import org.flixel.FlxG;
+	import org.flixel.FlxObject;
 	import org.flixel.FlxSprite;
 	
 	public class Hero extends FlxSprite
@@ -13,6 +15,19 @@ package Actors
 			maxVelocity.y = 200;
 			acceleration.y = 200;
 			drag.x = maxVelocity.x*4;			
+		}
+		
+		public override function update():void {			
+			trace("Getting updated anyway... :D");
+			acceleration.x = 0;
+			if(FlxG.keys.LEFT)
+				acceleration.x = -maxVelocity.x*4;
+			if(FlxG.keys.RIGHT)
+				acceleration.x = maxVelocity.x*4;
+			if(FlxG.keys.justPressed("SPACE") && isTouching(FlxObject.FLOOR))
+				velocity.y = -maxVelocity.y/2;
+			
+			super.update();
 		}
 	}
 }
