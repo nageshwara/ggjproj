@@ -98,6 +98,7 @@ package
 						break;
 				}
 			}
+			changeState("followPlayer");
 			
 			ATK = 20;
 		}
