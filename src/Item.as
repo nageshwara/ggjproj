@@ -45,6 +45,26 @@ package
 				{
 					loadGraphic(ImgItemSPD);
 				}
+				else if (attribute.getType() == Attribute.ATT_DEF)
+				{
+					loadGraphic(ImgItemDEF);
+				}
+				else if (attribute.getType() == Attribute.ATT_REGEN)
+				{
+					loadGraphic(ImgItemRegen);
+				}
+				else if (attribute.getType() == Attribute.ATT_PISTOL)
+				{
+					loadGraphic(ImgItemPistol);
+				}
+				else if (attribute.getType() == Attribute.ATT_REAR)
+				{
+					loadGraphic(ImgItemRear);
+				}
+				else if (attribute.getType() == Attribute.ATT_SIDE)
+				{
+					loadGraphic(ImgItemSide);
+				}
 			}
 		}
 	}
