@@ -54,35 +54,12 @@ package
 			regenTimer = 0;
 		}
 		
-		/**
-		 * Give attributes to another character
-		 * 
-		 * @param	character
-		 */
-		public function transferAttributes(character:Character):void
-		{
-			var attribute:Attribute;
-			for each (attribute in attributes)
-			{
-				character.addAttribute(attribute);
-				removeAttribute(attribute);
-			}
-		}
-		
 		public function dropItem():void
 		{
 			var item:Item = new Item(x, y);
-			transferAttributes(item);
+			item.copyAttributes(this);
 			item.updateImage();
 			PlayState.addToGroup(item, PlayState.items);
-		}
-		
-		/**
-		 * Transfer attributes to the player character.
-		 */
-		public function transferAttributesToPlayer():void
-		{
-			transferAttributes(PlayState.getPlayer());
 		}
 		
 		/**

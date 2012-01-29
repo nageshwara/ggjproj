@@ -165,6 +165,15 @@ package
 			super.addAttribute(attribute);
 		}
 		
+		public function clearShadow():void
+		{
+			if (shadow)
+			{
+				shadow.kill();
+				shadow = null;
+			}
+		}
+		
 		public override function hurt(damage:Number): void
 		{
 			super.hurt(damage / DEF);
@@ -176,12 +185,13 @@ package
 			if (isBoss)
 			{
 				clearAttributes();
-				player.transferAttributes(this);
+				copyAttributes(player);
 				health = Player.INITIAL_HEALTH;
 				revive();
 				if (shadow)
 				{
 					shadow.kill();
+					shadow = null;
 				}
 				PlayState.win();
 			}
