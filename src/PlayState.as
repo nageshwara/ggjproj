@@ -69,7 +69,9 @@ package
 			add(player);
 			add(playerBullets);
 			
-			// Create health bar
+			FlxG.camera.follow(player, FlxCamera.STYLE_TOPDOWN);
+			
+			// Create health barwd
 			healthBar = new FlxBar(16, 64, FlxBar.FILL_LEFT_TO_RIGHT, 64, 8, player, "health");
 			healthBar.trackParent(0, -24);
 			add(healthBar);
@@ -137,9 +139,9 @@ package
 				bossAttributes = boss.attributes;
 			}
 			
-			
 			player.clearAttributes();
 			
+			items.clear();
 			enemies.clear();
 			enemyBullets.clear();
 			playerBullets.clear();

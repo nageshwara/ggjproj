@@ -228,7 +228,7 @@ package
 			{
 				var weapon:Weapon = weapons.members[i];
 				weapon.update();
-				weapon.fireVector(direction, 0, 0);
+				weapon.fireAngle(angle, 0, 0);
 			}
 		}
 	}
