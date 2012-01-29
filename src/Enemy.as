@@ -104,6 +104,7 @@ package
 		{
 			if (isBoss)
 			{
+				clearAttributes();
 				player.transferAttributes(this);
 				health = Player.INITIAL_HEALTH;
 				revive();
