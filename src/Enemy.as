@@ -39,6 +39,8 @@ package
 		public static const INITIAL_HEALTH:int = 20;
 		public static const INITIAL_BOSS_HEALTH:int = 100;
 		
+		public static const FOLLOW_DISTANCE:Number = FRAME_WIDTH * 5;
+		
 		// BLINKING
 		public var blinkTimer:Number;
 		public static const BLINK_TIME:Number = 1;
@@ -223,9 +225,10 @@ package
 			return PlayState.getPlayer();
 		}
 		
-		public function get direction():FlxPoint
+		public function get currentDirection():FlxPoint
 		{
-			return new FlxPoint(Math.cos(angle), Math.sin(angle));
+			var radians:Number = angle / (180 / Math.PI);
+			return new FlxPoint(Math.cos(radians), Math.sin(radians));
 		}
 		
 		// ===================================================================================
@@ -237,6 +240,9 @@ package
 		 */
 		public function idleState(): void
 		{
+			velocity = VecUtil.scale(currentDirection, SPEED);
+			faceVelocity();
+			fireWeapons();
 		}
 		
 		/**
@@ -244,7 +250,7 @@ package
 		 */
 		public function spinLeftState():void
 		{
-			angle -= 1;
+			angle -= FlxG.elapsed;
 		}
 		
 		/**
@@ -252,7 +258,7 @@ package
 		 */
 		public function spinRightState():void
 		{
-			angle += 1;
+			angle += FlxG.elapsed;
 		}
 		
 		/**
@@ -262,6 +268,14 @@ package
 		{
 			var direction:FlxPoint = VecUtil.subtract(player.position, position);
 			var distance:Number = VecUtil.length(direction);
+			
+			if (distance > FOLLOW_DISTANCE)
+			{
+				velocity.x = 0;
+				velocity.y = 0;
+				changeState("idle");
+				return;
+			}
 			
 			// Normalize the direction
 			direction = VecUtil.scale(direction, 1 / distance);
