@@ -66,7 +66,6 @@ package
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
-
 						
 			if (FlxG.getPlugin(FlxControl) == null)
             {

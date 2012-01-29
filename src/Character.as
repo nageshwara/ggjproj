@@ -34,6 +34,7 @@ package
 		public var wpnPistol:Weapon;
 		public var wpnSide:Weapon;
 		public var wpnRear:Weapon;
+		public var wpnTerrible:Weapon;
 		public var weapons:FlxGroup;
 
 		public var regenTimer:Number;

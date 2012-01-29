@@ -23,11 +23,13 @@ package
 		[Embed(source = '../data/bullet_pistol_enemy.png')] private var ImgBulletPistolEnemy:Class;
 		[Embed(source = '../data/bullet_side_enemy.png')] private var ImgBulletSideEnemy:Class;
 		[Embed(source = '../data/bullet_rear_enemy.png')] private var ImgBulletRearEnemy:Class;
+		[Embed(source = '../data/bullet_terrible.png')] private var ImgBulletTerrible:Class;
 		
 		public var weaponType:Number
 		public const T_PISTOL:Number = 1;
 		public const T_SIDE:Number = 2;
 		public const T_REAR:Number = 3;
+		public const T_TERRIBLE:Number = 4;
 		
 		private var parent:Character;
 		
@@ -56,6 +58,11 @@ package
 				case T_SIDE:
 					{
 						bulletType = isPlayer ? ImgBulletSide : ImgBulletSideEnemy;
+					}
+					break;
+				case T_TERRIBLE:
+					{
+						bulletType = ImgBulletTerrible;
 					}
 					break;
 			}
@@ -103,6 +110,13 @@ package
 						weapon.fireFromAngle(angle+15);
 						updateCurrentBullet();
 					}
+				}
+				else if (weaponType == T_TERRIBLE)
+				{
+					weapon.setBulletOffset(originX + offsetX, originY + offsetY);
+					weapon.setBulletLifeSpan(1000);
+					weapon.fireFromAngle(angle);
+					updateCurrentBullet();
 				}
 				fireTimer = fireDelay;
 			}

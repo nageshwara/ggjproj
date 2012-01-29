@@ -249,7 +249,9 @@ package
 			player.x = FlxG.width / 2;
 			player.y = FlxG.height / 2;
 			player.health = Player.INITIAL_HEALTH;
-			player.addAttribute(new WeaponPistolAttribute);
+			player.wpnTerrible = new Weapon(player, player.bulletGroup, 4, 200, 150, 30, 1);
+			player.weapons.add(player.wpnTerrible);
+			//player.addAttribute(new WeaponPistolAttribute);
 			hud.update();
 		}
 	}
