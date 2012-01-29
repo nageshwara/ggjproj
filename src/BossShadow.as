@@ -17,9 +17,9 @@ package
 			loadGraphic(BossImgSprite, false, false, 40, 40);
 			
 			color = 0x000000;
-			alpha = 0.4;
-			scale.x = 1.5;
-			scale.y = 1.5;
+			alpha = 0.32;
+			scale.x = 15;
+			scale.y = 15;
 		}
 		
 		public override function update(): void
