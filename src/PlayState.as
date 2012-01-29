@@ -30,7 +30,7 @@ package
 		
 		public static function getRandomAttribute():Class
 		{
-			switch (Math.floor(FlxG.random() * 7))
+			switch (Math.floor(FlxG.random() * (Attribute.LAST+1)))
 			{
 				default:
 				case 0:
@@ -47,6 +47,8 @@ package
 					return WeaponSideAttribute;
 				case 6:
 					return WeaponRearAttribute;
+				case 7:
+					return WeaponBubbleAttribute;
 			}
 		}
 		
@@ -249,8 +251,9 @@ package
 			player.x = FlxG.width / 2;
 			player.y = FlxG.height / 2;
 			player.health = Player.INITIAL_HEALTH;
-			player.wpnTerrible = new Weapon(player, player.bulletGroup, 4, 200, 150, 30, 1);
-			player.weapons.add(player.wpnTerrible);
+			player.addAttribute(new WeaponPistolAttribute);
+			//player.wpnTerrible = new Weapon(player, player.bulletGroup, 4, 200, 200, 30, 1);
+			//player.weapons.add(player.wpnTerrible);
 			hud.update();
 		}
 	}
