@@ -20,6 +20,9 @@ package
 		[Embed(source = '../data/bullet_pistol.png')] private var ImgBulletPistol:Class;
 		[Embed(source = '../data/bullet_side.png')] private var ImgBulletSide:Class;
 		[Embed(source = '../data/bullet_rear.png')] private var ImgBulletRear:Class;
+		[Embed(source = '../data/bullet_pistol_enemy.png')] private var ImgBulletPistolEnemy:Class;
+		[Embed(source = '../data/bullet_side_enemy.png')] private var ImgBulletSideEnemy:Class;
+		[Embed(source = '../data/bullet_rear_enemy.png')] private var ImgBulletRearEnemy:Class;
 		
 		public var weaponType:Number
 		public const T_PISTOL:Number = 1;
@@ -36,22 +39,23 @@ package
 		{
 			weapon = new FlxWeapon("weapon", parent, "x", "y");
 			var bulletType:Class;
+			var isPlayer:Boolean = parent == PlayState.getPlayer() ? true : false;
 			switch (type)
 			{
 				case T_PISTOL:
 				default:
 					{
-						bulletType = ImgBulletPistol;
+						bulletType = isPlayer ? ImgBulletPistol : ImgBulletPistolEnemy;
 					}
 					break;
 				case T_REAR:
 					{
-						bulletType = ImgBulletRear;
+						bulletType = isPlayer ? ImgBulletRear : ImgBulletRearEnemy;
 					}
 					break;
 				case T_SIDE:
 					{
-						bulletType = ImgBulletSide;
+						bulletType = isPlayer ? ImgBulletSide : ImgBulletSideEnemy;
 					}
 					break;
 			}
@@ -76,32 +80,44 @@ package
 				{
 					weapon.setBulletOffset( originX - offsetX, originY - offsetY);
 					weapon.fireFromAngle(angle + 180);
-					weapon.currentBullet.ATK = parent.ATK;
+					updateCurrentBullet();
 				}
 				else if (weaponType == T_SIDE)
 				{
 					weapon.setBulletOffset(originX, originY);
 					weapon.fireFromAngle(angle + 90);
-					weapon.currentBullet.ATK = parent.ATK;
+					updateCurrentBullet();
 					weapon.fireFromAngle(angle + 270);
-					weapon.currentBullet.ATK = parent.ATK;
+					updateCurrentBullet();
 				}
 				else if (weaponType == T_PISTOL)
 				{
 					weapon.setBulletOffset(originX + offsetX, originY + offsetY);
 					weapon.fireFromAngle(angle);
-					weapon.currentBullet.ATK = parent.ATK;
+					updateCurrentBullet();
 					
 					if (level > 5)
 					{
 						weapon.fireFromAngle(angle-15);
-						weapon.currentBullet.ATK = parent.ATK;
+						updateCurrentBullet();
 						weapon.fireFromAngle(angle+15);
-						weapon.currentBullet.ATK = parent.ATK;
+						updateCurrentBullet();
 					}
 				}
 				fireTimer = fireDelay;
 			}
+		}
+		
+		public function updateCurrentBullet(): void
+		{
+			weapon.currentBullet.ATK = parent.ATK;
+			
+			// Add your velocity to the bullet (if you're traveling in the same direction)
+			// (bad physics, but it looks weird otherwise)
+			if (weapon.currentBullet.velocity.x * parent.velocity.x > 0)
+				weapon.currentBullet.velocity.x += parent.velocity.x;
+			if (weapon.currentBullet.velocity.y * parent.velocity.y > 0)
+			    weapon.currentBullet.velocity.y += parent.velocity.y;
 		}
 		
 		public function fireVector(vector:FlxPoint, offsetX:Number=0, offsetY:Number=0): void
