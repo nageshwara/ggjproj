@@ -243,6 +243,14 @@ package
 			velocity = VecUtil.scale(currentDirection, SPEED);
 			faceVelocity();
 			fireWeapons();
+			
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (distance <= FOLLOW_DISTANCE)
+			{
+				changeState("followPlayer");
+			}
 		}
 		
 		/**
