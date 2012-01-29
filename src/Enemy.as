@@ -33,6 +33,7 @@ package
 		public var maxspeed:Number;
 		
 		public var isBoss:Boolean;
+		private var shadow:BossShadow;
 		
 		// Current state
 		private var currentState:Function;
@@ -52,6 +53,8 @@ package
 			{
 				loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 				MAX_HP = health = INITIAL_BOSS_HEALTH;
+				shadow = new BossShadow(x, y, this);
+				FlxG.state.add(shadow);
 			}
 			else
 			{
@@ -111,6 +114,10 @@ package
 				player.transferAttributes(this);
 				health = Player.INITIAL_HEALTH;
 				revive();
+				if (shadow)
+				{
+					shadow.kill();
+				}
 				PlayState.win();
 			}
 			else
