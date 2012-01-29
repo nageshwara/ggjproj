@@ -309,11 +309,17 @@ package
 		
 		public function fireWeapons():void
 		{
-			for (var i:Number = 0; i < weapons.length; i++)
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (isBoss || distance < FOLLOW_DISTANCE * 1.5)
 			{
-				var weapon:Weapon = weapons.members[i];
-				weapon.update();
-				weapon.fireAngle(angle, 0, 0);
+				for (var i:Number = 0; i < weapons.length; i++)
+				{
+					var weapon:Weapon = weapons.members[i];
+					weapon.update();
+					weapon.fireAngle(angle, 0, 0);
+				}
 			}
 		}
 	}
