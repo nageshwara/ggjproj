@@ -53,7 +53,7 @@ package
 			}
 
 			var itr:Number = 0;
-			for (itr = 0; itr < Attribute.COUNT; itr++)
+			for (itr = 0; itr <= Attribute.LAST; itr++)
 			{
 				if (attributeValues[itr] > 0)
 				{

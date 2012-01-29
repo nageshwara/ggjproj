@@ -18,7 +18,7 @@ package attributes
 		public static const FIRST_WEAPON:Number = ATT_PISTOL;
 		public static const LAST_WEAPON:Number	= ATT_REAR;
 		
-		public static const COUNT:Number = ATT_REAR;
+		public static const LAST:Number = ATT_REAR;
 		
 		protected var attributeType:Number;
 		
