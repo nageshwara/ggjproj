@@ -23,6 +23,7 @@ package
 		private var bossHealthBar:FlxBar;
 		
 		private var debugText:FlxText;
+		private var hud:Hud;
 		
 		public static function win():void
 		{
@@ -68,6 +69,10 @@ package
 			player = new Player(FlxG.width/2, FlxG.height/2, playerBullets);
 			add(player);
 			add(playerBullets);
+			
+			var hudGroup:FlxGroup = new FlxGroup;
+			add(hudGroup);
+			hud = new Hud(hudGroup, player);
 			
 			FlxG.camera.follow(player, FlxCamera.STYLE_TOPDOWN);
 			
@@ -129,6 +134,8 @@ package
 			item.dropAttributeText();
 			item.transferAttributesToPlayer();
 			item.kill();
+			
+			hud.update();
 		}
 		
 		public function resetLevel(advanceLevel:Boolean = false):void
@@ -197,6 +204,7 @@ package
 			player.y = FlxG.height / 2;
 			player.health = Player.INITIAL_HEALTH;
 			player.addAttribute(new WeaponPistolAttribute);
+			hud.update();
 		}
 	}
 }
