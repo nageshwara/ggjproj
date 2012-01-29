@@ -49,13 +49,13 @@ package
 			var attribute:Attribute;
 			for each (attribute in player.attributes)
 			{
-				attributeValues[attribute.getType()]++;
+				attributeValues[attribute.getType()] += (attribute.ISDEBUFF ? -1 : 1);
 			}
 
 			var itr:Number = 0;
 			for (itr = 0; itr <= Attribute.LAST; itr++)
 			{
-				if (attributeValues[itr] > 0)
+				if (attributeValues[itr] != 0)
 				{
 					var itemIcon:Item = new Item(16 + i * 32, 16);
 					itemIcon.updateImage(itr);

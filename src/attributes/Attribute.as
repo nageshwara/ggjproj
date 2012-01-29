@@ -19,6 +19,7 @@ package attributes
 		public static const LAST:Number = ATT_BUBBLE;
 		
 		protected var attributeType:Number;
+		public var ISDEBUFF:Boolean = false;
 		
 		public function Attribute() 
 		{

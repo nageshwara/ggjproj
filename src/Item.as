@@ -37,6 +37,7 @@ package
 			// This bit is totally hacky -- used to force an image, so we can throw
 			// these items onto the hud
 			var imageType:Number = 0;
+			var isDebuff:Boolean = false;
 			if (fakeImage > -1)
 			{
 				imageType = fakeImage;
@@ -46,6 +47,7 @@ package
 				if ((attributes as Array).length >= 1)
 				{
 					imageType = (attributes[0] as attributes.Attribute).getType();
+					isDebuff = (attributes[0] as attributes.Attribute).ISDEBUFF;
 				}
 			}
 			
@@ -81,6 +83,10 @@ package
 			else if (imageType == Attribute.ATT_BUBBLE)
 			{
 				loadGraphic(ImgItemBubble);
+			}
+			if (isDebuff)
+			{
+				color = 0x333333;
 			}
 		}
 	}

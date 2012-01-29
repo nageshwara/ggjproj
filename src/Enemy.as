@@ -5,14 +5,7 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
-	import attributes.Attribute;
-	import attributes.AttackAttribute;
-	import attributes.DefenseAttribute;
-	import attributes.RegenAttribute;
-	import attributes.SpeedAttribute;
-	import attributes.WeaponPistolAttribute;
-	import attributes.WeaponRearAttribute;
-	import attributes.WeaponSideAttribute;
+	import attributes.*;
 	import org.flixel.plugin.photonstorm.FlxSpecialFX;
 	import org.flixel.plugin.photonstorm.FX.BlurFX;
 	
@@ -143,17 +136,37 @@ package
 				{
 					loadGraphic(RedSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 				}
+				else if (attribute is AttackDebuffAttribute)
+				{
+					loadGraphic(RedSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+					alpha = 0.5;
+				}
 				else if (attribute is DefenseAttribute)
 				{
 					loadGraphic(PurpleSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is DefenseDebuffAttribute)
+				{
+					loadGraphic(PurpleSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+					alpha = 0.5;
 				}
 				else if (attribute is RegenAttribute)
 				{
 					loadGraphic(OrangeSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 				}
+				else if (attribute is RegenDebuffAttribute)
+				{
+					loadGraphic(OrangeSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+					alpha = 0.5;
+				}
 				else if (attribute is SpeedAttribute)
 				{
 					loadGraphic(GreenSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is SpeedDebuffAttribute)
+				{
+					loadGraphic(GreenSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+					alpha = 0.5;
 				}
 				else if (attribute is WeaponPistolAttribute)
 				{

@@ -30,17 +30,18 @@ package
 		
 		public static function getRandomAttribute():Class
 		{
+			var isDebuff:Boolean = FlxG.random() < 0.3;
 			switch (Math.floor(FlxG.random() * (Attribute.LAST+1)))
 			{
 				default:
 				case 0:
-					return AttackAttribute;
+					return isDebuff ? AttackDebuffAttribute : AttackAttribute;
 				case 1:
-					return DefenseAttribute;
+					return isDebuff ? DefenseDebuffAttribute : DefenseAttribute;
 				case 2:
-					return RegenAttribute;
+					return isDebuff ? RegenDebuffAttribute : RegenAttribute;
 				case 3:
-					return SpeedAttribute;
+					return isDebuff ? SpeedDebuffAttribute : SpeedAttribute;
 				case 4:
 					return WeaponPistolAttribute;
 				case 5:
@@ -154,7 +155,7 @@ package
 			//Updates all the objects appropriately
 			super.update();
 			
-			debugText.text = "(" + Math.floor(player.position.x) + "," + Math.floor(player.position.y) + ")";
+			debugText.text = player.DEF.toString();
 			
 			if (FlxG.keys.SPACE)
 			{
