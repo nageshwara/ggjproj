@@ -16,6 +16,7 @@ package
 		[Embed(source = '../data/item_def.png')] private var ImgItemDEF:Class;
 		[Embed(source = '../data/item_spd.png')] private var ImgItemSPD:Class;
 		[Embed(source = '../data/item_regen.png')] private var ImgItemRegen:Class;
+		[Embed(source = '../data/item_bubble.png')] private var ImgItemBubble:Class;
 		
 		public function Item(x:Number, y:Number) 
 		{
@@ -76,6 +77,10 @@ package
 			else if (imageType == Attribute.ATT_SIDE)
 			{
 				loadGraphic(ImgItemSide);
+			}
+			else if (imageType == Attribute.ATT_BUBBLE)
+			{
+				loadGraphic(ImgItemBubble);
 			}
 		}
 	}

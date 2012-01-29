@@ -14,11 +14,9 @@ package attributes
 		public static const ATT_PISTOL:Number 	= 4;
 		public static const ATT_SIDE:Number 	= 5;
 		public static const ATT_REAR:Number	 	= 6;
+		public static const ATT_BUBBLE:Number	= 7;
 		
-		public static const FIRST_WEAPON:Number = ATT_PISTOL;
-		public static const LAST_WEAPON:Number	= ATT_REAR;
-		
-		public static const LAST:Number = ATT_REAR;
+		public static const LAST:Number = ATT_BUBBLE;
 		
 		protected var attributeType:Number;
 		

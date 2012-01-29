@@ -29,11 +29,14 @@ package
 		public var WEAPON_PISTOL:Number;
 		public var WEAPON_SIDE:Number;
 		public var WEAPON_REAR:Number;
+		public var WEAPON_BUBBLE:Number;
 				
 		// WEAPONS
 		public var wpnPistol:Weapon;
 		public var wpnSide:Weapon;
 		public var wpnRear:Weapon;
+		public var wpnTerrible:Weapon;
+		public var wpnBubble:Weapon;
 		public var weapons:FlxGroup;
 
 		public var regenTimer:Number;

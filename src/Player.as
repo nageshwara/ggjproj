@@ -60,13 +60,13 @@ package
 			WEAPON_PISTOL = 0;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
+			WEAPON_BUBBLE = 0;
 			REGEN = 0;
 
 			this.bulletGroup = bulletGroup;
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
-
 						
 			if (FlxG.getPlugin(FlxControl) == null)
             {
@@ -104,7 +104,7 @@ package
 			
 			if (FlxG.keys.SIX)
 			{
-				addAttribute(new attributes.SpeedAttribute);
+				addAttribute(new attributes.WeaponBubbleAttribute);
 			}
 			if (acceleration.x != 0 || acceleration.y != 0)
 			{

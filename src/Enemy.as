@@ -99,6 +99,7 @@ package
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
+			WEAPON_BUBBLE = 0;
 			
 			if (!isBoss)
 			{
@@ -164,6 +165,11 @@ package
 				}
 				else if (attribute is WeaponSideAttribute)
 				{
+					loadGraphic(PinkSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is attributes.WeaponBubbleAttribute)
+				{
+					// TODO real Bubble enemy art
 					loadGraphic(PinkSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 				}
 			}
