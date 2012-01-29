@@ -13,6 +13,8 @@ package
 	import attributes.WeaponPistolAttribute;
 	import attributes.WeaponRearAttribute;
 	import attributes.WeaponSideAttribute;
+	import org.flixel.plugin.photonstorm.FlxSpecialFX;
+	import org.flixel.plugin.photonstorm.FX.BlurFX;
 	
 	/**
 	 * ...

@@ -13,6 +13,7 @@ package
 	{
 		// Array of special attributes that modify stats
 		public var attributes:Array;
+		public var attributeVal:Array;
 		
 		public static const FRAME_WIDTH:int = 0;
 		public static const FRAME_HEIGHT:int = 0;
@@ -48,6 +49,7 @@ package
 		{
 			super(x, y);
 			attributes = new Array();
+			attributeVal = new Array();
 			weapons = new FlxGroup();
 			regenTimer = 0;
 		}

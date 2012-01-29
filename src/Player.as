@@ -78,8 +78,8 @@ package
 		
 		public override function kill(): void
 		{
-			PlayState.lose();
-			revive();
+			//PlayState.lose();
+			//revive();
 		}
 		
 		override public function update(): void
