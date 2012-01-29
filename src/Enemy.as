@@ -13,6 +13,8 @@ package
 	import attributes.WeaponPistolAttribute;
 	import attributes.WeaponRearAttribute;
 	import attributes.WeaponSideAttribute;
+	import org.flixel.plugin.photonstorm.FlxSpecialFX;
+	import org.flixel.plugin.photonstorm.FX.BlurFX;
 	
 	/**
 	 * ...
@@ -41,6 +43,8 @@ package
 		
 		public static const FOLLOW_DISTANCE:Number = FRAME_WIDTH * 5;
 		
+		public var personalSpaceDistance:Number = FRAME_WIDTH;
+		
 		// BLINKING
 		public var blinkTimer:Number;
 		public static const BLINK_TIME:Number = 1;
@@ -50,6 +54,11 @@ package
 		
 		public var isBoss:Boolean;
 		private var shadow:BossShadow;
+		
+		// what am i doing
+		// i am so tired
+		public var evenOddFlag:Boolean;
+		public var turnSpeed:Number = 1.0;
 		
 		// Current state
 		private var currentState:Function;
@@ -64,6 +73,8 @@ package
 		{
 			isBoss = boss;
 			super(X, Y);
+			
+			angle = Math.random() * 360;
 			
 			loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 
@@ -88,6 +99,11 @@ package
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
+			
+			if (!isBoss)
+			{
+				personalSpaceDistance = FRAME_WIDTH * (Math.random() * 3);
+			}
 			
 			this.bulletGroup = bulletGroup;
 			
@@ -154,6 +170,15 @@ package
 			super.addAttribute(attribute);
 		}
 		
+		public function clearShadow():void
+		{
+			if (shadow)
+			{
+				shadow.kill();
+				shadow = null;
+			}
+		}
+		
 		public override function hurt(damage:Number): void
 		{
 			super.hurt(damage / DEF);
@@ -165,12 +190,13 @@ package
 			if (isBoss)
 			{
 				clearAttributes();
-				player.transferAttributes(this);
+				copyAttributes(player);
 				health = Player.INITIAL_HEALTH;
 				revive();
 				if (shadow)
 				{
 					shadow.kill();
+					shadow = null;
 				}
 				PlayState.win();
 			}
@@ -243,6 +269,29 @@ package
 			velocity = VecUtil.scale(currentDirection, SPEED);
 			faceVelocity();
 			fireWeapons();
+			
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (distance <= FOLLOW_DISTANCE)
+			{
+				changeState("followPlayer");
+			}
+		}
+		
+		public function circleState():void
+		{
+			angle += FlxG.elapsed * 50 * turnSpeed * (evenOddFlag ? -1 : 1);
+			velocity = VecUtil.scale(currentDirection, SPEED);
+			fireWeapons();
+			
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (distance <= FOLLOW_DISTANCE)
+			{
+				changeState("followPlayer");
+			}
 		}
 		
 		/**
@@ -269,18 +318,20 @@ package
 			var direction:FlxPoint = VecUtil.subtract(player.position, position);
 			var distance:Number = VecUtil.length(direction);
 			
-			if (distance > FOLLOW_DISTANCE)
+			if (!isBoss && distance > FOLLOW_DISTANCE)
 			{
 				velocity.x = 0;
 				velocity.y = 0;
-				changeState("idle");
+				evenOddFlag = (Math.floor(FlxG.random() * 2)) > 1;
+				turnSpeed = Math.random() * 2 + 0.5;
+				changeState("circle");
 				return;
 			}
 			
 			// Normalize the direction
 			direction = VecUtil.scale(direction, 1 / distance);
 			
-			if (distance > FRAME_HEIGHT)
+			if (distance > personalSpaceDistance)
 			{
 				velocity = VecUtil.scale(direction, SPEED);
 				faceVelocity();
@@ -297,13 +348,18 @@ package
 		
 		public function fireWeapons():void
 		{
-			for (var i:Number = 0; i < weapons.length; i++)
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (isBoss || distance < FOLLOW_DISTANCE * 1.5)
 			{
-				var weapon:Weapon = weapons.members[i];
-				weapon.update();
-				weapon.fireAngle(angle, 0, 0);
+				for (var i:Number = 0; i < weapons.length; i++)
+				{
+					var weapon:Weapon = weapons.members[i];
+					weapon.update();
+					weapon.fireAngle(angle, 0, 0);
+				}
 			}
 		}
 	}
-
 }

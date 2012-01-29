@@ -13,6 +13,7 @@ package
 	{
 		// Array of special attributes that modify stats
 		public var attributes:Array;
+		public var attributeVal:Array;
 		
 		public static const FRAME_WIDTH:int = 0;
 		public static const FRAME_HEIGHT:int = 0;
@@ -48,39 +49,18 @@ package
 		{
 			super(x, y);
 			attributes = new Array();
+			attributeVal = new Array();
 			weapons = new FlxGroup();
 			regenTimer = 0;
-		}
-		
-		/**
-		 * Give attributes to another character
-		 * 
-		 * @param	character
-		 */
-		public function transferAttributes(character:Character):void
-		{
-			var attribute:Attribute;
-			for each (attribute in attributes)
-			{
-				character.addAttribute(attribute);
-				removeAttribute(attribute);
-			}
+			REGEN = 0;
 		}
 		
 		public function dropItem():void
 		{
 			var item:Item = new Item(x, y);
-			transferAttributes(item);
+			item.copyAttributes(this);
 			item.updateImage();
 			PlayState.addToGroup(item, PlayState.items);
-		}
-		
-		/**
-		 * Transfer attributes to the player character.
-		 */
-		public function transferAttributesToPlayer():void
-		{
-			transferAttributes(PlayState.getPlayer());
 		}
 		
 		/**
@@ -116,8 +96,9 @@ package
 			var attribute:Attribute;
 			for each (attribute in attributes)
 			{
-				removeAttribute(attribute);
+				attribute.onRemove(this);
 			}
+			attributes = new Array();
 		}
 		
 		/**

@@ -31,40 +31,51 @@ package
 			}
 		}
 		
-		public function updateImage():void
+		public function updateImage(fakeImage:Number=-1):void
 		{
-			// Only called after an item's attributes change (probably only immediately after creation)
-			var attribute:Attribute;
-			for each (attribute in attributes)
+			// This bit is totally hacky -- used to force an image, so we can throw
+			// these items onto the hud
+			var imageType:Number = 0;
+			if (fakeImage > -1)
 			{
-				if (attribute.getType() == Attribute.ATT_ATK)
+				imageType = fakeImage;
+			}
+			else
+			{
+				if ((attributes as Array).length >= 1)
 				{
-					loadGraphic(ImgItemATK);
+					imageType = (attributes[0] as attributes.Attribute).getType();
 				}
-				else if (attribute.getType() == Attribute.ATT_SPD)
-				{
-					loadGraphic(ImgItemSPD);
-				}
-				else if (attribute.getType() == Attribute.ATT_DEF)
-				{
-					loadGraphic(ImgItemDEF);
-				}
-				else if (attribute.getType() == Attribute.ATT_REGEN)
-				{
-					loadGraphic(ImgItemRegen);
-				}
-				else if (attribute.getType() == Attribute.ATT_PISTOL)
-				{
-					loadGraphic(ImgItemPistol);
-				}
-				else if (attribute.getType() == Attribute.ATT_REAR)
-				{
-					loadGraphic(ImgItemRear);
-				}
-				else if (attribute.getType() == Attribute.ATT_SIDE)
-				{
-					loadGraphic(ImgItemSide);
-				}
+			}
+			
+			// Only called after an item's attributes change (probably only immediately after creation)
+			if (imageType == Attribute.ATT_ATK)
+			{
+				loadGraphic(ImgItemATK);
+			}
+			else if (imageType == Attribute.ATT_SPD)
+			{
+				loadGraphic(ImgItemSPD);
+			}
+			else if (imageType == Attribute.ATT_DEF)
+			{
+				loadGraphic(ImgItemDEF);
+			}
+			else if (imageType == Attribute.ATT_REGEN)
+			{
+				loadGraphic(ImgItemRegen);
+			}
+			else if (imageType == Attribute.ATT_PISTOL)
+			{
+				loadGraphic(ImgItemPistol);
+			}
+			else if (imageType == Attribute.ATT_REAR)
+			{
+				loadGraphic(ImgItemRear);
+			}
+			else if (imageType == Attribute.ATT_SIDE)
+			{
+				loadGraphic(ImgItemSide);
 			}
 		}
 	}

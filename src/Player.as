@@ -7,6 +7,8 @@ package
 	import org.flixel.FlxG;
 	import org.flixel.plugin.photonstorm.FlxBar;
 	import org.flixel.plugin.photonstorm.FlxWeapon;
+	import org.flixel.plugin.photonstorm.FlxControl;
+	import org.flixel.plugin.photonstorm.FlxControlHandler;
 	
 	import Weapon;
 	import attributes.*;
@@ -42,6 +44,8 @@ package
 		public var NORTH:Number = 270;
 		public var NORTHEAST:Number = 315;
 		
+		public var control:FlxControl;
+		
 		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
@@ -49,14 +53,11 @@ package
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
-			maxVelocity = new FlxPoint(maxspeed, maxspeed);
-			drag.x = drag.y = 100
-			
 			SPEED = INITIAL_SPEED;
 			MAX_HP = health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
-			WEAPON_PISTOL = 1;
+			WEAPON_PISTOL = 0;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
 			REGEN = 0;
@@ -65,6 +66,16 @@ package
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
+
+						
+			if (FlxG.getPlugin(FlxControl) == null)
+            {
+                FlxG.addPlugin (new FlxControl)
+            }
+			FlxControl.create(this, FlxControlHandler.MOVEMENT_ACCELERATES, FlxControlHandler.STOPPING_DECELERATES, 1, false, true);
+			FlxControl.player1.setCustomKeys("W", "S", "A", "D");
+			updateSpeed();
+			FlxControl.player1.setRotationType(FlxControlHandler.ROTATION_INSTANT, FlxControlHandler.ROTATION_STOPPING_INSTANT);
 		}
 		
 		public override function hurt(damage:Number): void
@@ -82,12 +93,23 @@ package
 			revive();
 		}
 		
+		public function updateSpeed(): void
+		{
+			FlxControl.player1.setMovementSpeed(SPEED * 1.5, SPEED * 1.5, SPEED * 2, SPEED * 2, SPEED * 2, SPEED * 2);
+		}
 		override public function update(): void
 		{
-			maxspeed = SPEED * 2;
-			
-			move();
+			updateSpeed();
 			shoot();
+			
+			if (FlxG.keys.SIX)
+			{
+				addAttribute(new attributes.SpeedAttribute);
+			}
+			if (acceleration.x != 0 || acceleration.y != 0)
+			{
+				angle = FlxU.getAngle(velocity, new FlxPoint(0, 0)) + 90;
+			}
 			
 			if (invulnerableTimer > 0)
 			{
@@ -107,48 +129,6 @@ package
 			}
 			
 			super.update();
-		}
-		
-		public function move(): void
-		{
-			var direction:FlxPoint = new FlxPoint(0, 0);
-			if (FlxG.keys.W)
-			{
-				--direction.y;
-			}
-			if (FlxG.keys.S)
-			{
-				++direction.y;
-			}
-			if (FlxG.keys.A)
-			{
-				--direction.x;
-			}
-			if (FlxG.keys.D)
-			{
-				++direction.x;
-			}
-			
-			// Debug keys
-			if (FlxG.keys.NINE)
-			{
-				health = Math.min(health += 10, 100);
-			}
-			if (FlxG.keys.EIGHT)
-			{
-				health = Math.max(health -= 10, 0);
-			}
-			if (FlxG.keys.SEVEN)
-			{
-				addAttribute(new attributes.WeaponPistolAttribute);
-			}
-			
-			acceleration = new FlxPoint(SPEED * direction.x, SPEED * direction.y);
-			
-			if (direction.x || direction.y)
-			{
-				angle = FlxU.getAngle(velocity, new FlxPoint(0, 0)) + 90;
-			}
 		}
 		
 		public function shoot(): void
@@ -177,7 +157,7 @@ package
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();
-					weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
+					weapon.fireVector(direction, 0, 0);
 				}
 			}
 		}
