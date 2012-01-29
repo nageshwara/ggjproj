@@ -77,8 +77,8 @@ package
 	
 				theSplat.x = theXPos[i];
 				theSplat.y = theYPos[i];
-				theSplat.x -= 200;
-				theSplat.y -= 200;
+				//  theSplat.x =200;
+				// theSplat.y -= 200;
 				/// theSplat.width = theSplat.height= 40;
 				add(theSplat);
 			}
