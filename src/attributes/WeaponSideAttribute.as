@@ -39,7 +39,7 @@ package attributes
 				character.weapons.remove(character.wpnSide, true);
 				character.wpnSide = null;
 			}
-			if (character.WEAPON_REAR > 0)
+			if (character.WEAPON_SIDE > 0)
 			{
 				newSide = new Weapon(character, character.bulletGroup, 2, 100 + 25 * character.WEAPON_SIDE, 100 + 25 * character.WEAPON_SIDE, 50, character.WEAPON_SIDE);
 				character.weapons.add(newSide);
