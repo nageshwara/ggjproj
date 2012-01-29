@@ -42,7 +42,7 @@ package attributes
 			}
 			if (character.WEAPON_REAR > 0)
 			{
-				newRear = new Weapon(character, character.bulletGroup, 3, 100 + 25 * character.WEAPON_REAR, 100 + 25 * character.WEAPON_REAR, 50);
+				newRear = new Weapon(character, character.bulletGroup, 3, 100 + 25 * character.WEAPON_REAR, 100 + 25 * character.WEAPON_REAR, 50, character.WEAPON_REAR);
 				character.weapons.add(newRear);
 				character.wpnRear = newRear;	
 			}

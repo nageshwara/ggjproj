@@ -41,7 +41,7 @@ package attributes
 			}
 			if (character.WEAPON_PISTOL > 0)
 			{
-				newPistol = new Weapon(character, character.bulletGroup, 1, 200 + 50 * character.WEAPON_PISTOL, 200 + 50 * character.WEAPON_PISTOL, 50);
+				newPistol = new Weapon(character, character.bulletGroup, 1, 200 + 50 * character.WEAPON_PISTOL, 200 + 50 * character.WEAPON_PISTOL, 50, character.WEAPON_PISTOL);
 				character.weapons.add(newPistol);
 				character.wpnPistol = newPistol;	
 			}

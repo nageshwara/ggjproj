@@ -144,6 +144,10 @@ package
 			{
 				health = Math.max(health -= 10, 0);
 			}
+			if (FlxG.keys.SEVEN)
+			{
+				addAttribute(new attributes.WeaponPistolAttribute);
+			}
 			
 			acceleration = new FlxPoint(SPEED * direction.x, SPEED * direction.y);
 			

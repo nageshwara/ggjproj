@@ -41,7 +41,7 @@ package attributes
 			}
 			if (character.WEAPON_REAR > 0)
 			{
-				newSide = new Weapon(character, character.bulletGroup, 2, 100 + 25 * character.WEAPON_SIDE, 100 + 25 * character.WEAPON_SIDE, 50);
+				newSide = new Weapon(character, character.bulletGroup, 2, 100 + 25 * character.WEAPON_SIDE, 100 + 25 * character.WEAPON_SIDE, 50, character.WEAPON_SIDE);
 				character.weapons.add(newSide);
 				character.wpnSide = newSide;	
 			}
