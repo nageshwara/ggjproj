@@ -6,27 +6,32 @@ package
 	 * @author emedine
 	 */
 	import org.flixel.*;
+	import flash.net.*;
+	import flash.events.*;
 	// import flash.display.Sprite;
+	import hexagonstar.util.debug.Debug;
 	
 	public class Enviro extends FlxGroup
 	{
 		
-	
-		private var numBoxes:Number = 11;
+		private var numBoxes:Number = 1;
+		private var numBorder:Number = 11;
 		private var theBox:Box;
 		
+		/// game board info
 		public var theWidth:Number = FlxG.width;
 		public var theHeight:Number = FlxG.height;
+
 		
 		public function Enviro():void
 		{
-
-			initEnviro();
-
 			
+			spawnWalls();
+			
+	
 			
 		}
-		private function initEnviro():void{
+		private function spawnWalls():void{
 			/// build roof and floor
 						
 			/// get our rows and cols
@@ -46,6 +51,7 @@ package
 				}
 			}
 			/// build walls
+			/*
 			for(var w:Number = 0; w<2; w++){
 				for (var j:Number = 0; j<theWallHeight; j++){
 					theBox = new Box();
@@ -57,11 +63,9 @@ package
 					add(theBox);
 				}
 			}
-			
-			
+			 * */
 		}
-		
-
+		 
 		/////
 	}
 }
