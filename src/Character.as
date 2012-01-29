@@ -52,6 +52,7 @@ package
 			attributeVal = new Array();
 			weapons = new FlxGroup();
 			regenTimer = 0;
+			REGEN = 0;
 		}
 		
 		public function dropItem():void
