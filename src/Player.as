@@ -177,7 +177,7 @@ package
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();
-					weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
+					weapon.fireVector(direction, 0, 0);
 				}
 			}
 		}
