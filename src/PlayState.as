@@ -23,6 +23,16 @@ package
 		
 		private var debugText:FlxText;
 		
+		public static function win():void
+		{
+			return PlayState(FlxG.state).resetLevel(true);
+		}
+		
+		public static function lose():void
+		{
+			return PlayState(FlxG.state).resetLevel(false);
+		}
+		
 		public static function getPlayer():Player
 		{
 			return PlayState(FlxG.state).player;
@@ -128,6 +138,7 @@ package
 			
 			
 			player.clearAttributes();
+			
 			enemies.clear();
 			enemyBullets.clear();
 			playerBullets.clear();
@@ -172,6 +183,7 @@ package
 			player.x = FlxG.width / 2;
 			player.y = FlxG.height / 2;
 			player.health = Player.INITIAL_HEALTH;
+			player.addAttribute(new WeaponPistolAttribute);
 		}
 	}
 }

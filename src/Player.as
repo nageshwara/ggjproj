@@ -65,16 +65,6 @@ package
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
-						
-			addAttribute(new attributes.WeaponPistolAttribute);			
-			addAttribute(new attributes.WeaponRearAttribute);			
-			addAttribute(new attributes.WeaponSideAttribute);
-		}
-		
-		override public function clearAttributes():void
-		{
-			super.clearAttributes();
-			addAttribute(new WeaponPistolAttribute());
 		}
 		
 		public override function hurt(damage:Number): void
@@ -88,7 +78,8 @@ package
 		
 		public override function kill(): void
 		{
-			// TODO: actual logic when the player dies
+			PlayState.lose();
+			revive();
 		}
 		
 		override public function update(): void
@@ -114,7 +105,6 @@ package
 			{
 				play("default");
 			}
-			
 			
 			super.update();
 		}
@@ -186,7 +176,6 @@ package
 					weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
 				}
 			}
-			
 		}
 
 	}
