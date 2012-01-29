@@ -62,8 +62,6 @@ package
 		private function parseWorldMapData(e:Event):void{
 			xmlData = new XML(e.target.data);
 			numBoxes  = xmlData.worldData[theLevelID].block.length();
-
-			Debug.trace("ddddd: " + xmlData.worldData[theLevelID].block);
 			
 			theXPos = xmlData.worldData[theLevelID].block.@xPos;
 			theYPos = xmlData.worldData[theLevelID].block.@yPos;
@@ -79,9 +77,9 @@ package
 	
 				theSplat.x = theXPos[i];
 				theSplat.y = theYPos[i];
-				// theSplat.x += 60;
-				// theSplat.y += 60;
-				theSplat.width = theSplat.height= 40;
+				theSplat.x -= 200;
+				theSplat.y -= 200;
+				/// theSplat.width = theSplat.height= 40;
 				add(theSplat);
 			}
 			/*
