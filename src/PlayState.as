@@ -10,6 +10,7 @@ package
 		public var playerBullets:FlxGroup;
 		
 		public var enviro:Enviro;
+		public var obstac:Obstac;
 		
 		public var enemies:FlxGroup;
 		public var enemyBullets:FlxGroup;
@@ -41,8 +42,13 @@ package
 			FlxG.bgColor = 0xffaaaaaa;
 			
 			/// Create enviro
+			// /*
 			enviro = new Enviro();
 			add(enviro);
+			/// */
+			/// create obstac
+			obstac = new Obstac();
+			add(obstac);
 			
 			//Create player
 			playerBullets = new FlxGroup();
@@ -81,6 +87,13 @@ package
 			FlxG.collide(player, items, collidePlayerItems);
 			
 			FlxG.collide(player, enviro);
+			FlxG.collide(player, obstac);
+			FlxG.collide(enemies, enviro);
+			FlxG.collide(enemies, obstac);
+			// FlxG.collide(enemyBullets, obstac, collideWall);
+			//// this would be really cool, but kills the display list
+
+			/// FlxG.collide(playerBullets, enviro, doBouncePB);
 			
 			//Updates all the objects appropriately
 			super.update();
@@ -110,5 +123,25 @@ package
 			item.transferAttributesToPlayer();
 			item.kill();
 		}
+		/*
+		private function collideWall(bullet:Bullet, obstac:Obstac){
+			bullet.kill();
+			
+		}
+		
+		private function doBounceEB(bullet:Bullet, enviro:Enviro){
+			/// var theA = bullet.acceleration;
+			// bullet.angularAcceleration = theA*-1;
+			
+		}
+		private function doBouncePB(bullet:Bullet, enviro:Enviro){
+			
+			
+		}
+		 * *
+		 */
+		
+		
+		///
 	}
 }
