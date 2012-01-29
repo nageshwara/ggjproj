@@ -16,7 +16,7 @@ package
 		
 		private var numBoxes:Number = 1;
 		private var numBorder:Number = 11;
-		private var theSplat:Splat;
+		private var theRock:Rock;
 		
 		/// game board info
 		public var theWidth:Number = FlxG.width;
@@ -68,42 +68,19 @@ package
 			/// iterate thru the xml
 			/// position the block according to the xml
 			for(var i:int = 0; i<numBoxes; i++){
-				
-				// var tX:Number = Number(theXPos[i]));
-				/// Debug.trace("x number: " + Number(theXPos[i]));
+
 				Debug.trace("x: " + i + " : " + theXPos[i]);
-				theSplat = new Splat();
-				theSplat.immovable = true;
+				theRock = new Rock();
+				theRock.immovable = true;
 	
-				theSplat.x = theXPos[i];
-				theSplat.y = theYPos[i];
-				//  theSplat.x =200;
-				// theSplat.y -= 200;
-				/// theSplat.width = theSplat.height= 40;
-				add(theSplat);
+				theRock.x = theXPos[i];
+				theRock.y = theYPos[i];
+				add(theRock);
 			}
-			/*
-			firstNames = xmlData.player.fname;
-			lastNames = xmlData.player.lname;
-			playerScores = xmlData.player.high_score;
-			playerLevel = xmlData.player.level;
-			theDates = xmlData.player.gamedatetime;
-			*/
 			
 			
 		}
 		
-		////////////////// URL LOADER HANDLERS /////////////////
-		
-		private function httpStatusHandler( e:HTTPStatusEvent ):void {
-			//trace("httpStatusHandler:" + e);
-		}
-		private function securityErrorHandler( e:SecurityErrorEvent ):void {
-			trace("securityErrorHandler:" + e);
-		}
-		private function ioErrorHandler( e:IOErrorEvent ):void {
-			trace("ioErrorHandler: " + e);
-		}
 
 		/////
 	}

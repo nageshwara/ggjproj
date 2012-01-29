@@ -55,6 +55,11 @@ package
 		public var isBoss:Boolean;
 		private var shadow:BossShadow;
 		
+		// what am i doing
+		// i am so tired
+		public var evenOddFlag:Boolean;
+		public var turnSpeed:Number = 1.0;
+		
 		// Current state
 		private var currentState:Function;
 		
@@ -274,6 +279,21 @@ package
 			}
 		}
 		
+		public function circleState():void
+		{
+			angle += FlxG.elapsed * 50 * turnSpeed * (evenOddFlag ? -1 : 1);
+			velocity = VecUtil.scale(currentDirection, SPEED);
+			fireWeapons();
+			
+			var direction:FlxPoint = VecUtil.subtract(player.position, position);
+			var distance:Number = VecUtil.length(direction);
+			
+			if (distance <= FOLLOW_DISTANCE)
+			{
+				changeState("followPlayer");
+			}
+		}
+		
 		/**
 		 * Dummy testing state. Spin left!
 		 */
@@ -302,7 +322,9 @@ package
 			{
 				velocity.x = 0;
 				velocity.y = 0;
-				changeState("idle");
+				evenOddFlag = (Math.floor(FlxG.random() * 2)) > 1;
+				turnSpeed = Math.random() * 2 + 0.5;
+				changeState("circle");
 				return;
 			}
 			

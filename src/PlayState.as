@@ -251,7 +251,6 @@ package
 			player.health = Player.INITIAL_HEALTH;
 			player.wpnTerrible = new Weapon(player, player.bulletGroup, 4, 200, 150, 30, 1);
 			player.weapons.add(player.wpnTerrible);
-			//player.addAttribute(new WeaponPistolAttribute);
 			hud.update();
 		}
 	}
