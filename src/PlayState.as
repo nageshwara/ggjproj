@@ -140,6 +140,7 @@ package
 			
 			player.clearAttributes();
 			
+			items.clear();
 			enemies.clear();
 			enemyBullets.clear();
 			playerBullets.clear();
