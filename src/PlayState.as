@@ -20,6 +20,7 @@ package
 		public static var items:FlxGroup;
 		
 		private var healthBar:FlxBar;
+		private var bossHealthBar:FlxBar;
 		
 		private var debugText:FlxText;
 		
@@ -181,6 +182,16 @@ package
 			boss = new Enemy(300, 300, enemyBullets, true);
 			boss.addAttributes(bossAttributes);
 			enemies.add(boss);
+			
+			// Create boss health bar
+			if (bossHealthBar)
+			{
+				bossHealthBar.kill();
+			}
+			bossHealthBar = new FlxBar(0, 64, FlxBar.FILL_LEFT_TO_RIGHT, 64, 16, boss, "health");
+			bossHealthBar.createFilledBar(0xFF000000, 0xFFFF0000, true, 0xFF990000);
+			bossHealthBar.trackParent(-8, -24);
+			add(bossHealthBar);
 			
 			player.x = FlxG.width / 2;
 			player.y = FlxG.height / 2;

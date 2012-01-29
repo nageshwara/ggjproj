@@ -37,6 +37,7 @@ package
 		public static const DEFAULT_SPEED:Number = 50;
 		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
 		public static const INITIAL_HEALTH:int = 20;
+		public static const INITIAL_BOSS_HEALTH:int = 100;
 		
 		// BLINKING
 		public var blinkTimer:Number;
@@ -46,6 +47,7 @@ package
 		public var maxspeed:Number;
 		
 		public var isBoss:Boolean;
+		private var shadow:BossShadow;
 		
 		// Current state
 		private var currentState:Function;
@@ -62,13 +64,24 @@ package
 			super(X, Y);
 			
 			loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+
+			if (isBoss)
+			{
+				MAX_HP = health = INITIAL_BOSS_HEALTH;
+				shadow = new BossShadow(x, y, this);
+				FlxG.state.add(shadow);
+			}
+			else
+			{
+				MAX_HP = health = INITIAL_HEALTH;
+			}
 			
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
 			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
-			MAX_HP = health = INITIAL_HEALTH;
+			
 			DEF = 1.25;
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;
@@ -153,6 +166,10 @@ package
 				player.transferAttributes(this);
 				health = Player.INITIAL_HEALTH;
 				revive();
+				if (shadow)
+				{
+					shadow.kill();
+				}
 				PlayState.win();
 			}
 			else
