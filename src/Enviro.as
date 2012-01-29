@@ -6,66 +6,28 @@ package
 	 * @author emedine
 	 */
 	import org.flixel.*;
-	import flash.net.*;
-	import flash.events.*;
-	// import flash.display.Sprite;
-	import hexagonstar.util.debug.Debug;
-	
-	public class Enviro extends FlxGroup
+
+	public class Enviro extends FlxSprite
 	{
-		
-		private var numBoxes:Number = 1;
-		private var numBorder:Number = 11;
-		private var theBox:Box;
+		[Embed(source = '../data/foreground_lg.png')] private var ForegroundSprite:Class;
 		
 		/// game board info
-		public var theWidth:Number = FlxG.width;
-		public var theHeight:Number = FlxG.height;
+		public static const FRAME_WIDTH:int = 2000;
+		public static const FRAME_HEIGHT:int = 2000;
 
 		
 		public function Enviro():void
 		{
 			
-			spawnWalls();
+			spawnForeground();
 			
 	
 			
 		}
-		private function spawnWalls():void{
-			/// build roof and floor
-						
-			/// get our rows and cols
-			var theRoofLength:Number = Math.round(theWidth/20);
-			var theWallHeight:Number = Math.round(theHeight/20);
-			trace(theRoofLength);
-			// build roof
-			for(var r:Number = 0; r<2; r++){
-				for (var i:Number = 0; i<theRoofLength; i++){
-					theBox = new Box();
-					theBox.immovable = true;
-					theBox.x = i*20;
-					if(r==1){ /// do floor
-						theBox.y = theHeight-20;
-					}
-					add(theBox);
-				}
-			}
-			/// build walls
-			/*
-			for(var w:Number = 0; w<2; w++){
-				for (var j:Number = 0; j<theWallHeight; j++){
-					theBox = new Box();
-					theBox.immovable = true;
-					theBox.y = j*20;
-					if(w==1){ /// do floor
-						theBox.x = theWidth-20;
-					}
-					add(theBox);
-				}
-			}
-			 * */
+		private function spawnForeground():void{
+			loadGraphic(ForegroundSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 		}
-		 
+			
 		/////
 	}
 }
