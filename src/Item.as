@@ -22,22 +22,50 @@ package
 			super(x, y);
 		}
 		
-		public function updateImage(): void
+		public function dropAttributeText():void
+		{
+			var attribute:Attribute;
+			for each (attribute in attributes)
+			{
+				PlayState.dropText(x, y, attribute.name);
+			}
+		}
+		
+		public function updateImage():void
 		{
 			// Only called after an item's attributes change (probably only immediately after creation)
 			var attribute:Attribute;
 			for each (attribute in attributes)
 			{
-				if (attribute.getType() == attribute.ATT_ATK)
+				if (attribute.getType() == Attribute.ATT_ATK)
 				{
 					loadGraphic(ImgItemATK);
 				}
-				else if (attribute.getType() == attribute.ATT_SPD)
+				else if (attribute.getType() == Attribute.ATT_SPD)
 				{
 					loadGraphic(ImgItemSPD);
+				}
+				else if (attribute.getType() == Attribute.ATT_DEF)
+				{
+					loadGraphic(ImgItemDEF);
+				}
+				else if (attribute.getType() == Attribute.ATT_REGEN)
+				{
+					loadGraphic(ImgItemRegen);
+				}
+				else if (attribute.getType() == Attribute.ATT_PISTOL)
+				{
+					loadGraphic(ImgItemPistol);
+				}
+				else if (attribute.getType() == Attribute.ATT_REAR)
+				{
+					loadGraphic(ImgItemRear);
+				}
+				else if (attribute.getType() == Attribute.ATT_SIDE)
+				{
+					loadGraphic(ImgItemSide);
 				}
 			}
 		}
 	}
-
 }

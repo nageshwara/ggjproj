@@ -2,6 +2,7 @@ package
 {
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
+	import org.flixel.FlxGroup;
 	import org.flixel.FlxG;
 	import attributes.Attribute;
 	/**
@@ -15,15 +16,27 @@ package
 		
 		public static const FRAME_WIDTH:int = 0;
 		public static const FRAME_HEIGHT:int = 0;
+		public var bulletGroup:FlxGroup;
+		protected var MAX_HP:int = 0;
 		
 		// ATTRIBUTE MODIFIABLE VARIABLES
 		public var SPEED:Number;
 		public var ATK:Number;
 		public var DEF:Number;
+		public var REGEN:Number;
 		
 		public var WEAPON_PISTOL:Number;
 		public var WEAPON_SIDE:Number;
 		public var WEAPON_REAR:Number;
+				
+		// WEAPONS
+		public var wpnPistol:Weapon;
+		public var wpnSide:Weapon;
+		public var wpnRear:Weapon;
+		public var weapons:FlxGroup;
+
+		public var regenTimer:Number;
+		private const regenAmount:Number = 1;
 		
 		/**
 		 * Constructor
@@ -35,6 +48,8 @@ package
 		{
 			super(x, y);
 			attributes = new Array();
+			weapons = new FlxGroup();
+			regenTimer = 0;
 		}
 		
 		/**
@@ -115,7 +130,24 @@ package
 			{
 				attribute.onUpdate(this);
 			}
+			
+			updateRegen();
+			
 			super.update();
+		}
+		
+		public function updateRegen(forceStart:Boolean = false):void
+		{
+			if (regenTimer > 0 && REGEN > 0)
+			{
+				regenTimer -= FlxG.elapsed;
+			}
+			if (regenTimer <= 0 && REGEN > 0)
+			{
+				health += regenAmount;
+				health = Math.min(health, MAX_HP);
+				regenTimer = 25 / REGEN;
+			}
 		}
 		
 		/**
@@ -124,6 +156,15 @@ package
 		public function get position():FlxPoint
 		{
 			return new FlxPoint(x, y);
+		}
+		
+		public function addAttributes(newAttributes:Array):void
+		{
+			var attribute:Attribute;
+			for each (attribute in newAttributes)
+			{
+				addAttribute(attribute);
+			}
 		}
 		
 		/**

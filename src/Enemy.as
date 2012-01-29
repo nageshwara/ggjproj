@@ -5,14 +5,29 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
-	import attributes.*;
+	import attributes.Attribute;
+	import attributes.AttackAttribute;
+	import attributes.DefenseAttribute;
+	import attributes.RegenAttribute;
+	import attributes.SpeedAttribute;
+	import attributes.WeaponPistolAttribute;
+	import attributes.WeaponRearAttribute;
+	import attributes.WeaponSideAttribute;
+	
 	/**
 	 * ...
 	 * @author Jason Hamilton
 	 */
 	public class Enemy extends Character
 	{
-		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
+		[Embed(source = '../data/shark_red.png')] private var RedSprite:Class;
+		[Embed(source = '../data/shark_orange.png')] private var OrangeSprite:Class;
+		[Embed(source = '../data/shark_yellow.png')] private var YellowSprite:Class;
+		[Embed(source = '../data/shark_green.png')] private var GreenSprite:Class;
+		[Embed(source = '../data/shark_purple.png')] private var PurpleSprite:Class;
+		[Embed(source = '../data/shark_brown.png')] private var BrownSprite:Class;
+		[Embed(source = '../data/shark_pink.png')] private var PinkSprite:Class;
+		[Embed(source = '../data/shark_boss.png')] private var BossImgSprite:Class;
 		
 		// SPRITE INFO
 		public static const FRAME_WIDTH:int = 40;
@@ -22,12 +37,7 @@ package
 		public static const DEFAULT_SPEED:Number = 50;
 		public static const DEFAULT_MAX_SPEED:Number = DEFAULT_SPEED * 2;
 		public static const INITIAL_HEALTH:int = 20;
-		
-		// WEAPONS
-		private var wpnPistol:Weapon;
-		private var wpnSide:Weapon;
-		private var wpnRear:Weapon;
-		private var weapons:FlxGroup;
+		public static const INITIAL_BOSS_HEALTH:int = 100;
 		
 		// BLINKING
 		public var blinkTimer:Number;
@@ -35,6 +45,9 @@ package
 		
 		// ETC
 		public var maxspeed:Number;
+		
+		public var isBoss:Boolean;
+		private var shadow:BossShadow;
 		
 		// Current state
 		private var currentState:Function;
@@ -45,44 +58,98 @@ package
 		 * @param	X
 		 * @param	Y
 		 */
-		public function Enemy(X:Number, Y:Number, bulletGroup:FlxGroup): void
+		public function Enemy(X:Number, Y:Number, bulletGroup:FlxGroup, boss:Boolean = false): void
 		{
+			isBoss = boss;
 			super(X, Y);
-			loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+			
+			loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+
+			if (isBoss)
+			{
+				MAX_HP = health = INITIAL_BOSS_HEALTH;
+				shadow = new BossShadow(x, y, this);
+				FlxG.state.add(shadow);
+			}
+			else
+			{
+				MAX_HP = health = INITIAL_HEALTH;
+			}
+			
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
 			SPEED = DEFAULT_SPEED;
 			maxspeed = DEFAULT_MAX_SPEED;
-			health = INITIAL_HEALTH;
+			
 			DEF = 1.25;
+			WEAPON_PISTOL = 1;
+			WEAPON_SIDE = 0;
+			WEAPON_REAR = 0;
 			
-			weapons = new FlxGroup();
-			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
-			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
-			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
-			weapons.add(wpnPistol);
-			weapons.add(wpnSide);
-			weapons.add(wpnRear);
+			this.bulletGroup = bulletGroup;
 			
-			switch (Math.floor(FlxG.random() * 3))
+			if (isBoss)
 			{
-				default:
-					changeState("idle");
-					break;
-				case 0:
-					changeState("spinLeft");
-					break;
-				case 1:
-					changeState("spinRight");
-					break;
-				case 2:
-					changeState("followPlayer");
-					break;
+				changeState("followPlayer");
 			}
-			addAttribute(new AttackAttribute);
+			else
+			{
+				switch (Math.floor(FlxG.random() * 3))
+				{
+					default:
+						changeState("idle");
+						break;
+					case 0:
+						changeState("spinLeft");
+						break;
+					case 1:
+						changeState("spinRight");
+						break;
+					case 2:
+						changeState("followPlayer");
+						break;
+				}
+			}
+			changeState("followPlayer");
 			
 			ATK = 20;
+		}
+		
+		override public function addAttribute(attribute:Attribute):void
+		{
+			if (!isBoss)
+			{
+				if (attribute is AttackAttribute)
+				{
+					loadGraphic(RedSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is DefenseAttribute)
+				{
+					loadGraphic(PurpleSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is RegenAttribute)
+				{
+					loadGraphic(OrangeSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is SpeedAttribute)
+				{
+					loadGraphic(GreenSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponPistolAttribute)
+				{
+					loadGraphic(YellowSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponRearAttribute)
+				{
+					loadGraphic(BrownSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponSideAttribute)
+				{
+					loadGraphic(PinkSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+			}
+			super.addAttribute(attribute);
 		}
 		
 		public override function hurt(damage:Number): void
@@ -93,8 +160,23 @@ package
 		
 		public override function kill():void
 		{
-			dropItem();
-			super.kill();
+			if (isBoss)
+			{
+				clearAttributes();
+				player.transferAttributes(this);
+				health = Player.INITIAL_HEALTH;
+				revive();
+				if (shadow)
+				{
+					shadow.kill();
+				}
+				PlayState.win();
+			}
+			else
+			{
+				dropItem();
+				super.kill();
+			}
 		}
 		
 		/**
@@ -201,11 +283,11 @@ package
 		
 		public function fireWeapons():void
 		{
-			for (var i:Number = 0; i < weapons.members.length-1; ++i)
+			for (var i:Number = 0; i < weapons.length; i++)
 			{
 				var weapon:Weapon = weapons.members[i];
 				weapon.update();
-				weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
+				weapon.fireAngle(angle, 0, 0);
 			}
 		}
 	}

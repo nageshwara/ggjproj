@@ -6,19 +6,27 @@ package attributes
 	 */
 	public class Attribute 
 	{
-		public const ATT_ATK:Number 		= 0;
-		public const ATT_DEF:Number 		= 1;
-		public const ATT_SPD:Number 		= 2;
-		public const ATT_Regen:Number 		= 3;
-		public const ATT_Pistol:Number 		= 4;
-		public const ATT_Side:Number 		= 5;
-		public const ATT_Rear:Number	 	= 6;
+		public static const ATT_ATK:Number 		= 0;
+		public static const ATT_DEF:Number 		= 1;
+		public static const ATT_SPD:Number 		= 2;
+		public static const ATT_REGEN:Number 		= 3;
+		
+		public static const ATT_PISTOL:Number 		= 4;
+		public static const ATT_SIDE:Number 		= 5;
+		public static const ATT_REAR:Number	 	= 6;
+		
+		public static const FIRST_WEAPON:Number 	= ATT_PISTOL;
+		public static const LAST_WEAPON:Number		= ATT_REAR;
 		
 		protected var attributeType:Number;
 		
 		public function Attribute() 
 		{
-			
+		}
+		
+		public function get name():String
+		{
+			return "Attribute";
 		}
 		
 		public function onAdd(character:Character):void

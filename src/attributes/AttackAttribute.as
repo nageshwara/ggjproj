@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_ATK;
 		}
 		
+		override public function get name():String
+		{
+			return "ATK UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.ATK += ATTACK_BOOST;

@@ -9,6 +9,7 @@ package
 	import org.flixel.plugin.photonstorm.FlxWeapon;
 	
 	import Weapon;
+	import attributes.*;
 	
 	/**
 	 * ...
@@ -41,11 +42,6 @@ package
 		public var NORTH:Number = 270;
 		public var NORTHEAST:Number = 315;
 		
-		private var wpnPistol:Weapon;
-		private var wpnSide:Weapon;
-		private var wpnRear:Weapon;
-		private var weapons:FlxGroup;
-		
 		public function Player(X:Number, Y:Number, bulletGroup:FlxGroup): void
 		{
 			super(X, Y);
@@ -57,20 +53,15 @@ package
 			drag.x = drag.y = 100
 			
 			SPEED = INITIAL_SPEED;
-			health = INITIAL_HEALTH;
+			MAX_HP = health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
 			WEAPON_PISTOL = 1;
-			WEAPON_SIDE = 1;
-			WEAPON_REAR = 1;
+			WEAPON_SIDE = 0;
+			WEAPON_REAR = 0;
+			REGEN = 0;
 
-			weapons = new FlxGroup();
-			wpnPistol = new Weapon(this, bulletGroup, 1, 300, 25, 50);
-			wpnSide = new Weapon(this, bulletGroup, 2, 300, 100, 10);
-			wpnRear = new Weapon(this, bulletGroup, 3, 300, 50, 25);
-			weapons.add(wpnPistol);
-			weapons.add(wpnSide);
-			weapons.add(wpnRear);
+			this.bulletGroup = bulletGroup;
 			
 			invulnerableTimer = 0;
 			invulnerableTime = 3;
@@ -87,7 +78,8 @@ package
 		
 		public override function kill(): void
 		{
-			// TODO: actual logic when the player dies
+			PlayState.lose();
+			revive();
 		}
 		
 		override public function update(): void
@@ -113,7 +105,6 @@ package
 			{
 				play("default");
 			}
-			
 			
 			super.update();
 		}
@@ -147,6 +138,10 @@ package
 			{
 				health = Math.max(health -= 10, 0);
 			}
+			if (FlxG.keys.SEVEN)
+			{
+				addAttribute(new attributes.WeaponPistolAttribute);
+			}
 			
 			acceleration = new FlxPoint(SPEED * direction.x, SPEED * direction.y);
 			
@@ -178,15 +173,15 @@ package
 			
 			if (direction.x || direction.y)
 			{
-				for (var i:Number = 0; i < weapons.members.length-1; ++i)
+				for (var i:Number = 0; i < weapons.length; i++)
 				{
 					var weapon:Weapon = weapons.members[i];
 					weapon.update();
 					weapon.fireVector(direction, width/2 * direction.x, height/2 * direction.y);
 				}
 			}
-			
 		}
+
 	}
 
 }

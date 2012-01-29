@@ -30,8 +30,9 @@ package
 		
 		private var fireTimer:Number;
 		private var fireDelay:Number;
+		private var level:Number;
 		
-		public function Weapon(parent:Character, bulletGroup:FlxGroup, type:Number, speed:Number, fireRate:Number, maxBullets:Number ) 
+		public function Weapon(parent:Character, bulletGroup:FlxGroup, type:Number, speed:Number, fireRate:Number, maxBullets:Number, level:Number = 1 ) 
 		{
 			weapon = new FlxWeapon("weapon", parent, "x", "y");
 			var bulletType:Class;
@@ -59,8 +60,9 @@ package
 			
 			weapon.makeImageBullet(maxBullets, bulletType);
 			weapon.setBulletSpeed(speed);
-			fireDelay = fireRate / 100;
+			fireDelay = 100 / fireRate;
 			fireTimer = 0;
+			this.level = level;
 			bulletGroup.add(weapon.group);
 		}
 		
@@ -84,11 +86,19 @@ package
 					weapon.fireFromAngle(angle + 270);
 					weapon.currentBullet.ATK = parent.ATK;
 				}
-				else
+				else if (weaponType == T_PISTOL)
 				{
 					weapon.setBulletOffset(originX + offsetX, originY + offsetY);
 					weapon.fireFromAngle(angle);
 					weapon.currentBullet.ATK = parent.ATK;
+					
+					if (level > 5)
+					{
+						weapon.fireFromAngle(angle-15);
+						weapon.currentBullet.ATK = parent.ATK;
+						weapon.fireFromAngle(angle+15);
+						weapon.currentBullet.ATK = parent.ATK;
+					}
 				}
 				fireTimer = fireDelay;
 			}

@@ -14,6 +14,11 @@ package attributes
 			attributeType = ATT_SPD;
 		}
 		
+		override public function get name():String
+		{
+			return "SPEED UP";
+		}
+		
 		override public function onAdd(character:Character):void
 		{
 			character.SPEED += SPEED_BOOST;
