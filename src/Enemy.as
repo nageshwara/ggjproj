@@ -67,6 +67,8 @@ package
 			isBoss = boss;
 			super(X, Y);
 			
+			angle = Math.random() * 360;
+			
 			loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
 
 			if (isBoss)
@@ -315,5 +317,4 @@ package
 			}
 		}
 	}
-
 }

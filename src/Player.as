@@ -56,7 +56,7 @@ package
 			MAX_HP = health = INITIAL_HEALTH;
 			DEF = 1.25;
 			ATK = 10;
-			WEAPON_PISTOL = 1;
+			WEAPON_PISTOL = 0;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
 			REGEN = 0;
