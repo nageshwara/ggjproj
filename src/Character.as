@@ -96,8 +96,9 @@ package
 			var attribute:Attribute;
 			for each (attribute in attributes)
 			{
-				removeAttribute(attribute);
+				attribute.onRemove(this);
 			}
+			attributes = new Array();
 		}
 		
 		/**
