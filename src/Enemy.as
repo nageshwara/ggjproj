@@ -5,14 +5,28 @@ package
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxU;
 	import org.flixel.FlxG;
-	import attributes.*;
+	import attributes.Attribute;
+	import attributes.AttackAttribute;
+	import attributes.DefenseAttribute;
+	import attributes.RegenAttribute;
+	import attributes.SpeedAttribute;
+	import attributes.WeaponPistolAttribute;
+	import attributes.WeaponRearAttribute;
+	import attributes.WeaponSideAttribute;
+	
 	/**
 	 * ...
 	 * @author Jason Hamilton
 	 */
 	public class Enemy extends Character
 	{
-		[Embed(source = '../data/shark_red.png')] private var ImgSprite:Class;
+		[Embed(source = '../data/shark_red.png')] private var RedSprite:Class;
+		[Embed(source = '../data/shark_orange.png')] private var OrangeSprite:Class;
+		[Embed(source = '../data/shark_yellow.png')] private var YellowSprite:Class;
+		[Embed(source = '../data/shark_green.png')] private var GreenSprite:Class;
+		[Embed(source = '../data/shark_purple.png')] private var PurpleSprite:Class;
+		[Embed(source = '../data/shark_brown.png')] private var BrownSprite:Class;
+		[Embed(source = '../data/shark_pink.png')] private var PinkSprite:Class;
 		[Embed(source = '../data/shark_boss.png')] private var BossImgSprite:Class;
 		
 		// SPRITE INFO
@@ -47,14 +61,8 @@ package
 			isBoss = boss;
 			super(X, Y);
 			
-			if (isBoss)
-			{
-				loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
-			}
-			else
-			{
-				loadGraphic(ImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
-			}
+			loadGraphic(BossImgSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+			
 			addAnimation("default", [0]);
 			addAnimation("hurt", [0,1], 30);
 			
@@ -92,6 +100,42 @@ package
 			}
 			
 			ATK = 20;
+		}
+		
+		override public function addAttribute(attribute:Attribute):void
+		{
+			if (!isBoss)
+			{
+				if (attribute is AttackAttribute)
+				{
+					loadGraphic(RedSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is DefenseAttribute)
+				{
+					loadGraphic(PurpleSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is RegenAttribute)
+				{
+					loadGraphic(OrangeSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is SpeedAttribute)
+				{
+					loadGraphic(GreenSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponPistolAttribute)
+				{
+					loadGraphic(YellowSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponRearAttribute)
+				{
+					loadGraphic(BrownSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+				else if (attribute is WeaponSideAttribute)
+				{
+					loadGraphic(PinkSprite, true, false, FRAME_WIDTH, FRAME_HEIGHT);
+				}
+			}
+			super.addAttribute(attribute);
 		}
 		
 		public override function hurt(damage:Number): void
