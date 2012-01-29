@@ -43,6 +43,8 @@ package
 		
 		public static const FOLLOW_DISTANCE:Number = FRAME_WIDTH * 5;
 		
+		public var personalSpaceDistance:Number = FRAME_WIDTH;
+		
 		// BLINKING
 		public var blinkTimer:Number;
 		public static const BLINK_TIME:Number = 1;
@@ -92,6 +94,11 @@ package
 			WEAPON_PISTOL = 1;
 			WEAPON_SIDE = 0;
 			WEAPON_REAR = 0;
+			
+			if (!isBoss)
+			{
+				personalSpaceDistance = FRAME_WIDTH * (Math.random() * 3);
+			}
 			
 			this.bulletGroup = bulletGroup;
 			
@@ -281,7 +288,7 @@ package
 			var direction:FlxPoint = VecUtil.subtract(player.position, position);
 			var distance:Number = VecUtil.length(direction);
 			
-			if (distance > FOLLOW_DISTANCE)
+			if (!isBoss && distance > FOLLOW_DISTANCE)
 			{
 				velocity.x = 0;
 				velocity.y = 0;
@@ -292,7 +299,7 @@ package
 			// Normalize the direction
 			direction = VecUtil.scale(direction, 1 / distance);
 			
-			if (distance > FRAME_HEIGHT)
+			if (distance > personalSpaceDistance)
 			{
 				velocity = VecUtil.scale(direction, SPEED);
 				faceVelocity();

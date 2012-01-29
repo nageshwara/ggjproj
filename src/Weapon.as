@@ -110,14 +110,17 @@ package
 		
 		public function updateCurrentBullet(): void
 		{
-			weapon.currentBullet.ATK = parent.ATK;
-			
-			// Add your velocity to the bullet (if you're traveling in the same direction)
-			// (bad physics, but it looks weird otherwise)
-			if (weapon.currentBullet.velocity.x * parent.velocity.x > 0)
-				weapon.currentBullet.velocity.x += parent.velocity.x;
-			if (weapon.currentBullet.velocity.y * parent.velocity.y > 0)
-			    weapon.currentBullet.velocity.y += parent.velocity.y;
+			if (weapon.currentBullet)
+			{
+				weapon.currentBullet.ATK = parent.ATK;
+				
+				// Add your velocity to the bullet (if you're traveling in the same direction)
+				// (bad physics, but it looks weird otherwise)
+				if (weapon.currentBullet.velocity.x * parent.velocity.x > 0)
+					weapon.currentBullet.velocity.x += parent.velocity.x;
+				if (weapon.currentBullet.velocity.y * parent.velocity.y > 0)
+					weapon.currentBullet.velocity.y += parent.velocity.y;
+			}
 		}
 		
 		public function fireVector(vector:FlxPoint, offsetX:Number=0, offsetY:Number=0): void
